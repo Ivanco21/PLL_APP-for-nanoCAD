@@ -30,22 +30,30 @@ using Multicad.Runtime;
         {
             List<Point3d> Vert = new List<Point3d>();
             Vert = listVertecs(plineForWork);
-            Vert.Reverse();
+
+            if (plineForWork.Polyline.ClosedLogically == false || (plineForWork.Polyline.ClosedLogically == true
+                                                                  && (plineForWork.Polyline.Vertices.First().Point.X == plineForWork.Polyline.Vertices.Last().Point.X)
+                                                                  && (plineForWork.Polyline.Vertices.First().Point.Y == plineForWork.Polyline.Vertices.Last().Point.Y)
+                                                                  && (plineForWork.Polyline.Vertices.First().Point.Z == plineForWork.Polyline.Vertices.Last().Point.Z)))
+            {
+              Vert.Reverse();
+            }
+            else
+            {
+              Vert.Reverse(1, Vert.Count - 1);
+            }
 
             Polyline3d reversPL3d = new Polyline3d(Vert);
 
-
-            // Если вы с помощью выбора берете уже существующую полилинию, то это plineForWork.DbEntity.AddToCurrentDocument(); не нужно, можно есче добавить plineForWork.DbEntity.Update();
-             plineForWork.DbEntity.Erase();// удаляет исходную PL из чертежа
-
             if (plineForWork.Polyline.ClosedLogically == true)
             {
-                reversPL3d.SetClosed(true);
+              reversPL3d.SetClosed(true);
             }
 
+            plineForWork.DbEntity.Erase();// удаляет исходную PL из чертежа
             plineForWork = reversPL3d;
-            plineForWork.DbEntity.AddToCurrentDocument();
-
+            plineForWork.DbEntity.AddToCurrentDocument();      
+            // Если вы с помощью выбора берете уже существующую полилинию, то это plineForWork.DbEntity.AddToCurrentDocument(); не нужно, можно есче добавить plineForWork.DbEntity.Update();                       
         }
 
         public void numberInDwg(int inputUserTextHeight)
@@ -159,23 +167,34 @@ using Multicad.Runtime;
 
  
        public void deletDuplicatedVertexPolyline(DbPolyline plineForWork)
-        {
-            //на LINQ.https://www.youtube.com/watch?v=WSm6uEtgqzk&index=20&list=PL-ss7IpVOiB6Z3Pn8Paapr5qwT2lqS14D
+        {      
+            //на LINQ            
+            int i = listVertecs(plineForWork).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Count();
+            int j = listVertecs(plineForWork).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Distinct().Count();
 
-            var list = listVertecs(plineForWork).Select(CompareFactor => new {CompareFactor.X, CompareFactor.Y,CompareFactor.Z}).Distinct();
-
-            List<Point3d> Vertex = new List<Point3d>();
-          
-           foreach( var item in list)
+            if (i == j)
             {
-               Point3d PointForList = new Point3d(item.X,item.Y,item.Z);
-               Vertex.Add(PointForList);
+              MessageBox.Show("У данной полилинии нет одинаковых/задвоенных вершин");
+              return;
             }
 
-           Polyline3d PL3dNonDuplicatePoints = new Polyline3d(Vertex);
-           DbPolyline PL = PL3dNonDuplicatePoints;
-           plineForWork.DbEntity.Erase();
-           PL.DbEntity.AddToCurrentDocument();       
+            var list = listVertecs(plineForWork).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Distinct();
+
+            List<Point3d> Vertex = new List<Point3d>();
+            foreach (var item in list)
+            {
+              Point3d PointForList = new Point3d(item.X, item.Y, item.Z);
+              Vertex.Add(PointForList);
+            }
+         
+            Polyline3d PL3dNonDuplicatePoints = new Polyline3d(Vertex);
+            if (plineForWork.Polyline.ClosedLogically == true)
+            {
+              PL3dNonDuplicatePoints.SetClosed(true);
+            }
+            DbPolyline PL = PL3dNonDuplicatePoints;      
+            plineForWork.DbEntity.Erase();
+            PL.DbEntity.AddToCurrentDocument();       
         }
 
     }

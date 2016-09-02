@@ -65,18 +65,17 @@
             this.pnlOnePnl.Controls.Add(this.vertInTable);
             this.pnlOnePnl.Controls.Add(this.numVertex);
             this.pnlOnePnl.Controls.Add(this.revers);
-            this.pnlOnePnl.Controls.Add(this.btExportInCsv);
             this.pnlOnePnl.Enabled = false;
             this.pnlOnePnl.Location = new System.Drawing.Point(12, 41);
             this.pnlOnePnl.Name = "pnlOnePnl";
-            this.pnlOnePnl.Size = new System.Drawing.Size(398, 261);
+            this.pnlOnePnl.Size = new System.Drawing.Size(398, 227);
             this.pnlOnePnl.TabIndex = 1;
             // 
             // DelDuplicateVertexPl
             // 
-            this.DelDuplicateVertexPl.Location = new System.Drawing.Point(3, 189);
+            this.DelDuplicateVertexPl.Location = new System.Drawing.Point(126, 185);
             this.DelDuplicateVertexPl.Name = "DelDuplicateVertexPl";
-            this.DelDuplicateVertexPl.Size = new System.Drawing.Size(185, 23);
+            this.DelDuplicateVertexPl.Size = new System.Drawing.Size(185, 25);
             this.DelDuplicateVertexPl.TabIndex = 11;
             this.DelDuplicateVertexPl.Text = "Удаление одинаковых вершин";
             this.DelDuplicateVertexPl.UseVisualStyleBackColor = true;
@@ -85,11 +84,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(84, 137);
+            this.label1.Location = new System.Drawing.Point(6, 159);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(141, 13);
+            this.label1.Size = new System.Drawing.Size(305, 13);
             this.label1.TabIndex = 10;
-            this.label1.Text = "после реверса-перевыбор";
+            this.label1.Text = "после реверса и удаления одинаковых вершин перевыбор";
             // 
             // vertInTable
             // 
@@ -126,7 +125,6 @@
             this.cbAccuracyPoint.Size = new System.Drawing.Size(94, 21);
             this.cbAccuracyPoint.TabIndex = 2;
             this.cbAccuracyPoint.Text = "0.0";
-            this.cbAccuracyPoint.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // lbAccuracyPoint
             // 
@@ -142,9 +140,10 @@
             this.numVertex.Controls.Add(this.btNumberVertInDwg);
             this.numVertex.Controls.Add(this.lbTextHeight);
             this.numVertex.Controls.Add(this.tbTextHeight);
+            this.numVertex.Controls.Add(this.btExportInCsv);
             this.numVertex.Location = new System.Drawing.Point(9, 63);
             this.numVertex.Name = "numVertex";
-            this.numVertex.Size = new System.Drawing.Size(383, 60);
+            this.numVertex.Size = new System.Drawing.Size(383, 93);
             this.numVertex.TabIndex = 8;
             this.numVertex.TabStop = false;
             // 
@@ -179,7 +178,7 @@
             // 
             // revers
             // 
-            this.revers.Location = new System.Drawing.Point(3, 131);
+            this.revers.Location = new System.Drawing.Point(15, 185);
             this.revers.Name = "revers";
             this.revers.Size = new System.Drawing.Size(75, 25);
             this.revers.TabIndex = 0;
@@ -189,7 +188,7 @@
             // 
             // btExportInCsv
             // 
-            this.btExportInCsv.Location = new System.Drawing.Point(245, 131);
+            this.btExportInCsv.Location = new System.Drawing.Point(6, 62);
             this.btExportInCsv.Name = "btExportInCsv";
             this.btExportInCsv.Size = new System.Drawing.Size(147, 25);
             this.btExportInCsv.TabIndex = 4;
@@ -201,7 +200,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 314);
+            this.ClientSize = new System.Drawing.Size(422, 280);
             this.Controls.Add(this.pnlOnePnl);
             this.Controls.Add(this.btGetPL);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

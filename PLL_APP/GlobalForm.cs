@@ -59,17 +59,6 @@ namespace PLL_APP
             ForWorkInForms.vertexInTableOutDwg(cbAccuracyPoint.Text);
         }
 
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-          
-        }
-
         private void numberInDwg_Click(object sender, EventArgs e)
         {
             ForWorkInForms.numberInDwg(Convert.ToInt32(inputUserTextHeight));            
@@ -114,8 +103,9 @@ namespace PLL_APP
         private void segmentToLines_Click(object sender, EventArgs e)
         {
             ForWorkInForms.deletDuplicatedVertexPolyline(ForWorkInForms.plineForWork);
+            pnlOnePnl.Enabled = false;
         }
-   
+
               
     }
  }
