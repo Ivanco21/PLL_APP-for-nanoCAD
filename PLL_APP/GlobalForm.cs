@@ -25,9 +25,11 @@ namespace PLL_APP
             InitializeComponent();
         }
 
-        public double inputUserTextHeight = 250;// также 250 записано здесь  this.textHeight.Text, что вероятно неправильно(дублирование). 
         HandlerPolyline ForWorkInForms = new HandlerPolyline();
-        
+        public double inputUserTextHeight = 250;// также 250 записано здесь  this.textHeight.Text, что вероятно неправильно(дублирование).      
+        public double MaxLenghtSegPl = 50;
+        public bool delSoursePl = false;   
+      
         private void GetPL_Click(object sender, EventArgs e)
         {
             try
@@ -55,7 +57,6 @@ namespace PLL_APP
 
         private void vertexInTable_Click(object sender, EventArgs e)
         {
-            // таблицу в чертеж
             ForWorkInForms.vertexInTableOutDwg(cbAccuracyPoint.Text);
         }
 
@@ -96,7 +97,6 @@ namespace PLL_APP
 
         private void ExportInCsv_Click(object sender, EventArgs e)
         {
-            //таблицу в файл
             ForWorkInForms.vertexInTableOutCsv(cbAccuracyPoint.Text);
         }
         
@@ -106,6 +106,39 @@ namespace PLL_APP
             pnlOnePnl.Enabled = false;
         }
 
+        private void tbTolerance_TextChanged(object sender, EventArgs e)
+        {
+            //проверка что вводится число!
+            string inputMaxLenghtSegPl = tbTolerance.Text;
+            string decimal_sep = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
+            inputMaxLenghtSegPl = tbTolerance.Text.Replace(".", decimal_sep);// явная замена на точку (NumberDecimalSeparator - точка по умолчанию) возможно можно лучше сделать
+            inputMaxLenghtSegPl = tbTolerance.Text.Replace(",", decimal_sep);
+
+            bool res = double.TryParse(inputMaxLenghtSegPl, out MaxLenghtSegPl);
+
+            if (res == false)
+            {
+                lbTolerance.Text = "Введите число!";
+                lbTolerance.ForeColor = Color.Red;
+                btRedusePl.Enabled = false;
+            }
+            else
+            {
+                lbTolerance.Text = "Максимальная длинна сегмента";
+                lbTolerance.ForeColor = Color.Black;
+                btRedusePl.Enabled = true;
+            }
+
+        }
+        private void cbDelSoursePl_CheckedChanged(object sender, EventArgs e)
+        {
+            delSoursePl = cbDelSoursePl.Checked;  
+        }
+        private void btRedusePl_Click(object sender, EventArgs e)         
+        {
+            ForWorkInForms.reducePolyline(ForWorkInForms.plineForWork,MaxLenghtSegPl,delSoursePl);      
+        }
+   
               
     }
  }

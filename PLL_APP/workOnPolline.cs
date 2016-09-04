@@ -197,4 +197,53 @@ using Multicad.Runtime;
             PL.DbEntity.AddToCurrentDocument();       
         }
 
+       public void reducePolyline(DbPolyline plineForWork, double tolerance, bool delSoursePL )
+       {
+          List<Point3d> Vert = new List<Point3d>();
+          List<Point3d> delVert = new List<Point3d>();
+
+          Vert = listVertecs(plineForWork);
+
+          for (uint i=0;i<plineForWork.Polyline.Segments.Count;i++)
+            {
+              Curve3d oneSegment = plineForWork.Polyline.Segments.GetSegAt(i,true);
+              int j = Convert.ToInt32(i);
+               
+                if (oneSegment.Length(0,1) < tolerance)
+                {
+                  delVert.Add(Vert[j+1]);          
+                }
+           }
+
+           if(delVert.Count == 0)
+           {
+               MessageBox.Show("Коротких сегментов не найдено");
+               return;
+           }
+
+          var result = Vert.Except(delVert);// на LINQ с помощью метода Except можно получить разность двух множеств
+
+          List<Point3d> resultVertex = new List<Point3d>();
+          foreach (var item in result)
+          {
+              Point3d PointForList = new Point3d(item.X, item.Y, item.Z);
+              resultVertex.Add(PointForList);
+          }
+
+          Polyline3d PL3dRedused = new Polyline3d(resultVertex);
+        
+          if (plineForWork.Polyline.ClosedLogically == true)
+          {
+              PL3dRedused.SetClosed(true);
+          }
+          DbPolyline PL = PL3dRedused;
+
+          if (delSoursePL == true)
+          {
+              plineForWork.DbEntity.Erase();
+          }
+          PL.DbEntity.AddToCurrentDocument();
+          
+       }
+
     }

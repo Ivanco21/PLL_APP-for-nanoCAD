@@ -30,6 +30,11 @@
         {
             this.btGetPL = new System.Windows.Forms.Button();
             this.pnlOnePnl = new System.Windows.Forms.Panel();
+            this.gbRedusePl = new System.Windows.Forms.GroupBox();
+            this.lbTolerance = new System.Windows.Forms.Label();
+            this.tbTolerance = new System.Windows.Forms.TextBox();
+            this.btRedusePl = new System.Windows.Forms.Button();
+            this.cbDelSoursePl = new System.Windows.Forms.CheckBox();
             this.DelDuplicateVertexPl = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.vertInTable = new System.Windows.Forms.GroupBox();
@@ -40,9 +45,10 @@
             this.btNumberVertInDwg = new System.Windows.Forms.Button();
             this.lbTextHeight = new System.Windows.Forms.Label();
             this.tbTextHeight = new System.Windows.Forms.TextBox();
-            this.revers = new System.Windows.Forms.Button();
             this.btExportInCsv = new System.Windows.Forms.Button();
+            this.revers = new System.Windows.Forms.Button();
             this.pnlOnePnl.SuspendLayout();
+            this.gbRedusePl.SuspendLayout();
             this.vertInTable.SuspendLayout();
             this.numVertex.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +66,7 @@
             // pnlOnePnl
             // 
             this.pnlOnePnl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlOnePnl.Controls.Add(this.gbRedusePl);
             this.pnlOnePnl.Controls.Add(this.DelDuplicateVertexPl);
             this.pnlOnePnl.Controls.Add(this.label1);
             this.pnlOnePnl.Controls.Add(this.vertInTable);
@@ -68,12 +75,63 @@
             this.pnlOnePnl.Enabled = false;
             this.pnlOnePnl.Location = new System.Drawing.Point(12, 41);
             this.pnlOnePnl.Name = "pnlOnePnl";
-            this.pnlOnePnl.Size = new System.Drawing.Size(398, 227);
+            this.pnlOnePnl.Size = new System.Drawing.Size(368, 304);
             this.pnlOnePnl.TabIndex = 1;
+            // 
+            // gbRedusePl
+            // 
+            this.gbRedusePl.Controls.Add(this.lbTolerance);
+            this.gbRedusePl.Controls.Add(this.tbTolerance);
+            this.gbRedusePl.Controls.Add(this.btRedusePl);
+            this.gbRedusePl.Controls.Add(this.cbDelSoursePl);
+            this.gbRedusePl.Location = new System.Drawing.Point(9, 216);
+            this.gbRedusePl.Name = "gbRedusePl";
+            this.gbRedusePl.Size = new System.Drawing.Size(348, 77);
+            this.gbRedusePl.TabIndex = 12;
+            this.gbRedusePl.TabStop = false;
+            // 
+            // lbTolerance
+            // 
+            this.lbTolerance.AutoSize = true;
+            this.lbTolerance.Location = new System.Drawing.Point(167, 16);
+            this.lbTolerance.Name = "lbTolerance";
+            this.lbTolerance.Size = new System.Drawing.Size(174, 13);
+            this.lbTolerance.TabIndex = 3;
+            this.lbTolerance.Text = "Максимальная длинна сегмента";
+            // 
+            // tbTolerance
+            // 
+            this.tbTolerance.Location = new System.Drawing.Point(228, 45);
+            this.tbTolerance.Name = "tbTolerance";
+            this.tbTolerance.Size = new System.Drawing.Size(99, 20);
+            this.tbTolerance.TabIndex = 2;
+            this.tbTolerance.Text = "50";
+            this.tbTolerance.TextChanged += new System.EventHandler(this.tbTolerance_TextChanged);
+            // 
+            // btRedusePl
+            // 
+            this.btRedusePl.Location = new System.Drawing.Point(6, 16);
+            this.btRedusePl.Name = "btRedusePl";
+            this.btRedusePl.Size = new System.Drawing.Size(127, 23);
+            this.btRedusePl.TabIndex = 0;
+            this.btRedusePl.Text = "Упростить";
+            this.btRedusePl.UseVisualStyleBackColor = true;
+            this.btRedusePl.Click += new System.EventHandler(this.btRedusePl_Click);
+            // 
+            // cbDelSoursePl
+            // 
+            this.cbDelSoursePl.AutoSize = true;
+            this.cbDelSoursePl.Location = new System.Drawing.Point(6, 48);
+            this.cbDelSoursePl.Name = "cbDelSoursePl";
+            this.cbDelSoursePl.Size = new System.Drawing.Size(179, 17);
+            this.cbDelSoursePl.TabIndex = 1;
+            this.cbDelSoursePl.Text = "Удалять исходную полилинию";
+            this.cbDelSoursePl.UseVisualStyleBackColor = true;
+            this.cbDelSoursePl.CheckedChanged += new System.EventHandler(this.cbDelSoursePl_CheckedChanged);
             // 
             // DelDuplicateVertexPl
             // 
-            this.DelDuplicateVertexPl.Location = new System.Drawing.Point(126, 185);
+            this.DelDuplicateVertexPl.Location = new System.Drawing.Point(165, 185);
             this.DelDuplicateVertexPl.Name = "DelDuplicateVertexPl";
             this.DelDuplicateVertexPl.Size = new System.Drawing.Size(185, 25);
             this.DelDuplicateVertexPl.TabIndex = 11;
@@ -86,9 +144,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 159);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(305, 13);
+            this.label1.Size = new System.Drawing.Size(307, 13);
             this.label1.TabIndex = 10;
-            this.label1.Text = "после реверса и удаления одинаковых вершин перевыбор";
+            this.label1.Text = "После реверса и удаления одинаковых вершин перевыбор";
             // 
             // vertInTable
             // 
@@ -97,15 +155,15 @@
             this.vertInTable.Controls.Add(this.lbAccuracyPoint);
             this.vertInTable.Location = new System.Drawing.Point(9, 3);
             this.vertInTable.Name = "vertInTable";
-            this.vertInTable.Size = new System.Drawing.Size(383, 54);
+            this.vertInTable.Size = new System.Drawing.Size(348, 54);
             this.vertInTable.TabIndex = 9;
             this.vertInTable.TabStop = false;
             // 
             // vertexInTable
             // 
-            this.vertexInTable.Location = new System.Drawing.Point(6, 19);
+            this.vertexInTable.Location = new System.Drawing.Point(6, 13);
             this.vertexInTable.Name = "vertexInTable";
-            this.vertexInTable.Size = new System.Drawing.Size(216, 23);
+            this.vertexInTable.Size = new System.Drawing.Size(147, 35);
             this.vertexInTable.TabIndex = 1;
             this.vertexInTable.Text = "Вершины в таблицу чертежа";
             this.vertexInTable.UseVisualStyleBackColor = true;
@@ -120,20 +178,20 @@
             "0.0",
             "0.00",
             "0.000"});
-            this.cbAccuracyPoint.Location = new System.Drawing.Point(255, 27);
+            this.cbAccuracyPoint.Location = new System.Drawing.Point(214, 27);
             this.cbAccuracyPoint.Name = "cbAccuracyPoint";
-            this.cbAccuracyPoint.Size = new System.Drawing.Size(94, 21);
+            this.cbAccuracyPoint.Size = new System.Drawing.Size(99, 21);
             this.cbAccuracyPoint.TabIndex = 2;
             this.cbAccuracyPoint.Text = "0.0";
             // 
             // lbAccuracyPoint
             // 
             this.lbAccuracyPoint.AutoSize = true;
-            this.lbAccuracyPoint.Location = new System.Drawing.Point(252, 10);
+            this.lbAccuracyPoint.Location = new System.Drawing.Point(211, 11);
             this.lbAccuracyPoint.Name = "lbAccuracyPoint";
-            this.lbAccuracyPoint.Size = new System.Drawing.Size(108, 13);
+            this.lbAccuracyPoint.Size = new System.Drawing.Size(110, 13);
             this.lbAccuracyPoint.TabIndex = 3;
-            this.lbAccuracyPoint.Text = "точность координат";
+            this.lbAccuracyPoint.Text = "Точность координат";
             // 
             // numVertex
             // 
@@ -143,7 +201,7 @@
             this.numVertex.Controls.Add(this.btExportInCsv);
             this.numVertex.Location = new System.Drawing.Point(9, 63);
             this.numVertex.Name = "numVertex";
-            this.numVertex.Size = new System.Drawing.Size(383, 93);
+            this.numVertex.Size = new System.Drawing.Size(348, 93);
             this.numVertex.TabIndex = 8;
             this.numVertex.TabStop = false;
             // 
@@ -151,7 +209,7 @@
             // 
             this.btNumberVertInDwg.Location = new System.Drawing.Point(6, 19);
             this.btNumberVertInDwg.Name = "btNumberVertInDwg";
-            this.btNumberVertInDwg.Size = new System.Drawing.Size(233, 23);
+            this.btNumberVertInDwg.Size = new System.Drawing.Size(147, 34);
             this.btNumberVertInDwg.TabIndex = 5;
             this.btNumberVertInDwg.Text = "Нумеровать вершины в чертеже";
             this.btNumberVertInDwg.UseVisualStyleBackColor = true;
@@ -160,7 +218,7 @@
             // lbTextHeight
             // 
             this.lbTextHeight.AutoSize = true;
-            this.lbTextHeight.Location = new System.Drawing.Point(271, 10);
+            this.lbTextHeight.Location = new System.Drawing.Point(201, 16);
             this.lbTextHeight.Name = "lbTextHeight";
             this.lbTextHeight.Size = new System.Drawing.Size(82, 13);
             this.lbTextHeight.TabIndex = 7;
@@ -169,22 +227,12 @@
             // tbTextHeight
             // 
             this.tbTextHeight.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
-            this.tbTextHeight.Location = new System.Drawing.Point(261, 33);
+            this.tbTextHeight.Location = new System.Drawing.Point(202, 33);
             this.tbTextHeight.Name = "tbTextHeight";
             this.tbTextHeight.Size = new System.Drawing.Size(100, 20);
             this.tbTextHeight.TabIndex = 6;
             this.tbTextHeight.Text = "250";
             this.tbTextHeight.TextChanged += new System.EventHandler(this.textHeight_TextChanged);
-            // 
-            // revers
-            // 
-            this.revers.Location = new System.Drawing.Point(15, 185);
-            this.revers.Name = "revers";
-            this.revers.Size = new System.Drawing.Size(75, 25);
-            this.revers.TabIndex = 0;
-            this.revers.Text = "Реверс";
-            this.revers.UseVisualStyleBackColor = true;
-            this.revers.Click += new System.EventHandler(this.revers_Click);
             // 
             // btExportInCsv
             // 
@@ -196,20 +244,32 @@
             this.btExportInCsv.UseVisualStyleBackColor = true;
             this.btExportInCsv.Click += new System.EventHandler(this.ExportInCsv_Click);
             // 
+            // revers
+            // 
+            this.revers.Location = new System.Drawing.Point(15, 185);
+            this.revers.Name = "revers";
+            this.revers.Size = new System.Drawing.Size(75, 25);
+            this.revers.TabIndex = 0;
+            this.revers.Text = "Реверс";
+            this.revers.UseVisualStyleBackColor = true;
+            this.revers.Click += new System.EventHandler(this.revers_Click);
+            // 
             // GlobalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 280);
+            this.ClientSize = new System.Drawing.Size(392, 357);
             this.Controls.Add(this.pnlOnePnl);
             this.Controls.Add(this.btGetPL);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "GlobalForm";
             this.ShowIcon = false;
-            this.Text = "PLL APP by Ivanco_v0.1";
+            this.Text = "PLL APP by Ivanco_v0.2";
             this.pnlOnePnl.ResumeLayout(false);
             this.pnlOnePnl.PerformLayout();
+            this.gbRedusePl.ResumeLayout(false);
+            this.gbRedusePl.PerformLayout();
             this.vertInTable.ResumeLayout(false);
             this.vertInTable.PerformLayout();
             this.numVertex.ResumeLayout(false);
@@ -234,5 +294,10 @@
         private System.Windows.Forms.GroupBox vertInTable;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button DelDuplicateVertexPl;
+        private System.Windows.Forms.GroupBox gbRedusePl;
+        private System.Windows.Forms.Label lbTolerance;
+        private System.Windows.Forms.TextBox tbTolerance;
+        private System.Windows.Forms.Button btRedusePl;
+        private System.Windows.Forms.CheckBox cbDelSoursePl;
     }
 }

@@ -1,0 +1,7 @@
+Z:\Code_repository\C#\nanoCAD\PLL_APP\PLL_APP\bin\x86\Debug\PLL_APP.dll
+Z:\Code_repository\C#\nanoCAD\PLL_APP\PLL_APP\bin\x86\Debug\PLL_APP.pdb
+Z:\Code_repository\C#\nanoCAD\PLL_APP\PLL_APP\bin\x86\Debug\Microsoft.QualityTools.Testing.Fakes.dll
+Z:\Code_repository\C#\nanoCAD\PLL_APP\PLL_APP\obj\x86\Debug\PLL_APP.GlobalForm.resources
+Z:\Code_repository\C#\nanoCAD\PLL_APP\PLL_APP\obj\x86\Debug\PLL_APP.csproj.GenerateResource.Cache
+Z:\Code_repository\C#\nanoCAD\PLL_APP\PLL_APP\obj\x86\Debug\PLL_APP.dll
+Z:\Code_repository\C#\nanoCAD\PLL_APP\PLL_APP\obj\x86\Debug\PLL_APP.pdb
