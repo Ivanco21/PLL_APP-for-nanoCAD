@@ -116,7 +116,7 @@
             this.btRedusePl.TabIndex = 0;
             this.btRedusePl.Text = "Упростить";
             this.btRedusePl.UseVisualStyleBackColor = true;
-            this.btRedusePl.Click += new System.EventHandler(this.btRedusePl_Click);
+            this.btRedusePl.Click += new System.EventHandler(this.btFitPl_Click);
             // 
             // cbDelSoursePl
             // 
@@ -152,10 +152,11 @@
             // 
             this.vertInTable.Controls.Add(this.vertexInTable);
             this.vertInTable.Controls.Add(this.cbAccuracyPoint);
+            this.vertInTable.Controls.Add(this.btExportInCsv);
             this.vertInTable.Controls.Add(this.lbAccuracyPoint);
             this.vertInTable.Location = new System.Drawing.Point(9, 3);
             this.vertInTable.Name = "vertInTable";
-            this.vertInTable.Size = new System.Drawing.Size(348, 54);
+            this.vertInTable.Size = new System.Drawing.Size(348, 87);
             this.vertInTable.TabIndex = 9;
             this.vertInTable.TabStop = false;
             // 
@@ -198,10 +199,9 @@
             this.numVertex.Controls.Add(this.btNumberVertInDwg);
             this.numVertex.Controls.Add(this.lbTextHeight);
             this.numVertex.Controls.Add(this.tbTextHeight);
-            this.numVertex.Controls.Add(this.btExportInCsv);
-            this.numVertex.Location = new System.Drawing.Point(9, 63);
+            this.numVertex.Location = new System.Drawing.Point(9, 96);
             this.numVertex.Name = "numVertex";
-            this.numVertex.Size = new System.Drawing.Size(348, 93);
+            this.numVertex.Size = new System.Drawing.Size(348, 60);
             this.numVertex.TabIndex = 8;
             this.numVertex.TabStop = false;
             // 
@@ -218,7 +218,7 @@
             // lbTextHeight
             // 
             this.lbTextHeight.AutoSize = true;
-            this.lbTextHeight.Location = new System.Drawing.Point(201, 16);
+            this.lbTextHeight.Location = new System.Drawing.Point(201, 14);
             this.lbTextHeight.Name = "lbTextHeight";
             this.lbTextHeight.Size = new System.Drawing.Size(82, 13);
             this.lbTextHeight.TabIndex = 7;
@@ -227,7 +227,7 @@
             // tbTextHeight
             // 
             this.tbTextHeight.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
-            this.tbTextHeight.Location = new System.Drawing.Point(202, 33);
+            this.tbTextHeight.Location = new System.Drawing.Point(204, 35);
             this.tbTextHeight.Name = "tbTextHeight";
             this.tbTextHeight.Size = new System.Drawing.Size(100, 20);
             this.tbTextHeight.TabIndex = 6;
@@ -236,7 +236,7 @@
             // 
             // btExportInCsv
             // 
-            this.btExportInCsv.Location = new System.Drawing.Point(6, 62);
+            this.btExportInCsv.Location = new System.Drawing.Point(6, 54);
             this.btExportInCsv.Name = "btExportInCsv";
             this.btExportInCsv.Size = new System.Drawing.Size(147, 25);
             this.btExportInCsv.TabIndex = 4;
@@ -258,7 +258,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 357);
+            this.ClientSize = new System.Drawing.Size(392, 353);
             this.Controls.Add(this.pnlOnePnl);
             this.Controls.Add(this.btGetPL);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

@@ -10,33 +10,23 @@ using Multicad.DatabaseServices.StandardObjects;
 using Multicad.Symbols.Tables;
 using Multicad.Runtime;
 
+namespace PLL_APP
+{
    partial class HandlerPolyline
-    {
-
-       public List<Point3d> listVertecs(DbPolyline plineForWork)
+    { 
+        public void reversPolyline ()
         {
-            List<Point3d> Vertices = new List<Point3d>();
-            // собираем все вершины в list
-            for (int i1 = 0; i1 < plineForWork.Polyline.Vertices.Count; i1++)
-              {
-                Point3d Vertex = new Point3d(); double Bulge; double startWidth; double endWidth; Vector3d nrm;
-                plineForWork.Polyline.Vertices.GetVertexAt((uint)i1, out Vertex, out Bulge, out startWidth, out endWidth, out nrm);
-                Vertices.Add(Vertex);
-              }
-            return Vertices;
-        }
-
-        public void reversPolyline (DbPolyline plineForWork)
-        {
+            PolylineProperties plForWork = new PolylineProperties(plineGetFromUser);
             List<Point3d> Vert = new List<Point3d>();
-            Vert = listVertecs(plineForWork);
+            Vert = plForWork.listVertecs(plineGetFromUser); 
 
-            if (plineForWork.Polyline.ClosedLogically == false || (plineForWork.Polyline.ClosedLogically == true
-                                                                  && (plineForWork.Polyline.Vertices.First().Point.X == plineForWork.Polyline.Vertices.Last().Point.X)
-                                                                  && (plineForWork.Polyline.Vertices.First().Point.Y == plineForWork.Polyline.Vertices.Last().Point.Y)
-                                                                  && (plineForWork.Polyline.Vertices.First().Point.Z == plineForWork.Polyline.Vertices.Last().Point.Z)))
+            if (plForWork.closed == false)
             {
               Vert.Reverse();
+            }
+            else if (plForWork.closeAndDuplicateVertex == true)
+            {
+                Vert.Reverse();
             }
             else
             {
@@ -45,21 +35,23 @@ using Multicad.Runtime;
 
             Polyline3d reversPL3d = new Polyline3d(Vert);
 
-            if (plineForWork.Polyline.ClosedLogically == true)
+            if (plineGetFromUser.Polyline.ClosedLogically == true)
             {
               reversPL3d.SetClosed(true);
             }
 
-            plineForWork.DbEntity.Erase();// удаляет исходную PL из чертежа
-            plineForWork = reversPL3d;
-            plineForWork.DbEntity.AddToCurrentDocument();      
+            plineGetFromUser.DbEntity.Erase();// удаляет исходную PL из чертежа
+            plineGetFromUser = reversPL3d;
+            // plineGetFromUser.DbEntity.Update(); 
+            plineGetFromUser.DbEntity.AddToCurrentDocument();
             // Если вы с помощью выбора берете уже существующую полилинию, то это plineForWork.DbEntity.AddToCurrentDocument(); не нужно, можно есче добавить plineForWork.DbEntity.Update();                       
         }
 
-        public void numberInDwg(int inputUserTextHeight)
+        public void numberInDwg(int inputUserTextHeight) 
         {
+            PolylineProperties plForWork = new PolylineProperties(plineGetFromUser);
             List<Point3d> Vert = new List<Point3d>();
-            Vert = listVertecs(plineForWork);
+            Vert = plForWork.listVertecs(plineGetFromUser);
 
             Vector3d forTextVector = new Vector3d(100, 0, 0);
             double hTx = inputUserTextHeight; // получаем от пользователя
@@ -77,10 +69,11 @@ using Multicad.Runtime;
 
         }
 
-        public McTable vertexInTable(DbPolyline plineForWork, string accuracyPoint)
+        public McTable vertexInTable(DbPolyline plineGetFromUser, string accuracyPoint) 
         {
+            PolylineProperties plForWork = new PolylineProperties(plineGetFromUser);
             List<Point3d> Vert = new List<Point3d>();
-            Vert = listVertecs(plineForWork);
+            Vert = plForWork.listVertecs(plineGetFromUser);
 
             // создаем таблицу
             McTable TablePoint = new McTable();
@@ -153,7 +146,7 @@ using Multicad.Runtime;
         public void vertexInTableOutDwg(string accuracyPoint)
         {
             // создаем таблицу на чертеже
-            McTable TablePoint = vertexInTable(plineForWork, accuracyPoint);
+            McTable TablePoint = vertexInTable(plineGetFromUser,accuracyPoint);
             TablePoint.PlaceObject(McEntity.PlaceFlags.Silent);
 
         }
@@ -161,16 +154,16 @@ using Multicad.Runtime;
         public void vertexInTableOutCsv(string accuracyPoint)
         {
             //выгружаем в csv
-            McTable TablePoint = vertexInTable(plineForWork, accuracyPoint);
+            McTable TablePoint = vertexInTable(plineGetFromUser, accuracyPoint);
             TablePoint.SaveToFile();
         }
 
- 
-       public void deletDuplicatedVertexPolyline(DbPolyline plineForWork)
-        {      
+        public void deletDuplicatedVertexPolyline()
+        {
+            PolylineProperties plForWork = new PolylineProperties(plineGetFromUser);
             //на LINQ            
-            int i = listVertecs(plineForWork).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Count();
-            int j = listVertecs(plineForWork).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Distinct().Count();
+            int i = plForWork.listVertecs(plineGetFromUser).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Count();
+            int j = plForWork.listVertecs(plineGetFromUser).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Distinct().Count();
 
             if (i == j)
             {
@@ -178,7 +171,7 @@ using Multicad.Runtime;
               return;
             }
 
-            var list = listVertecs(plineForWork).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Distinct();
+            var list = plForWork.listVertecs(plineGetFromUser).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Distinct();
 
             List<Point3d> Vertex = new List<Point3d>();
             foreach (var item in list)
@@ -188,62 +181,89 @@ using Multicad.Runtime;
             }
          
             Polyline3d PL3dNonDuplicatePoints = new Polyline3d(Vertex);
-            if (plineForWork.Polyline.ClosedLogically == true)
+            if (plineGetFromUser.Polyline.ClosedLogically == true)
             {
               PL3dNonDuplicatePoints.SetClosed(true);
             }
-            DbPolyline PL = PL3dNonDuplicatePoints;      
-            plineForWork.DbEntity.Erase();
-            PL.DbEntity.AddToCurrentDocument();       
+            plineGetFromUser.DbEntity.Erase();
+            plineGetFromUser = PL3dNonDuplicatePoints;
+            plineGetFromUser.DbEntity.AddToCurrentDocument();       
         }
 
-       public void reducePolyline(DbPolyline plineForWork, double tolerance, bool delSoursePL )
+        public void fitPolyline(double tolerance, bool delSoursePL)
        {
+          PolylineProperties plForWork = new PolylineProperties(plineGetFromUser);
           List<Point3d> Vert = new List<Point3d>();
           List<Point3d> delVert = new List<Point3d>();
+          Vert = plForWork.listVertecs(plineGetFromUser);
 
-          Vert = listVertecs(plineForWork);
+          if (plForWork.closeAndDuplicateVertex == false && plineGetFromUser.Polyline.ClosedLogically == true)
+          {
+              for (uint i = 0; i < plineGetFromUser.Polyline.Segments.Count; i++)
+              {
+                  Curve3d oneSegment = plineGetFromUser.Polyline.Segments.GetSegAt(i, true);
+                  int j = Convert.ToInt32(i);
 
-          for (uint i=0;i<plineForWork.Polyline.Segments.Count;i++)
-            {
-              Curve3d oneSegment = plineForWork.Polyline.Segments.GetSegAt(i,true);
-              int j = Convert.ToInt32(i);
-               
-                if (oneSegment.Length(0,1) < tolerance)
-                {
-                  delVert.Add(Vert[j+1]);          
-                }
-           }
+                  if (j == plineGetFromUser.Polyline.Segments.Count - 1 && oneSegment.Length(0, 1) < tolerance) // дописать логику. что делать если последний сегмент замкнутой поллинии короткий?
+                  {
 
-           if(delVert.Count == 0)
+                  }
+                  else if (oneSegment.Length(0, 1) < tolerance)
+                  {
+                      delVert.Add(Vert[j + 1]);
+                  }
+              }
+          }
+          else
+          {
+              for (uint i = 0; i < plineGetFromUser.Polyline.Segments.Count; i++)
+              {
+                  Curve3d oneSegment = plineGetFromUser.Polyline.Segments.GetSegAt(i, true);
+                  int j = Convert.ToInt32(i);
+                  if (oneSegment.Length(0, 1) < tolerance)
+                  {
+                      delVert.Add(Vert[j + 1]);
+                  }
+              }
+          }
+         
+           List<Point3d> resultVertex = new List<Point3d>();
+
+           if (delVert.Count == 0)
            {
                MessageBox.Show("Коротких сегментов не найдено");
                return;
            }
-
-          var result = Vert.Except(delVert);// на LINQ с помощью метода Except можно получить разность двух множеств
-
-          List<Point3d> resultVertex = new List<Point3d>();
-          foreach (var item in result)
-          {
-              Point3d PointForList = new Point3d(item.X, item.Y, item.Z);
-              resultVertex.Add(PointForList);
-          }
-
-          Polyline3d PL3dRedused = new Polyline3d(resultVertex);
+           else if (delVert.Count == Vert.Count-1)// в случае если все сегменты меньше заданного значения -соединяем первую и последнюю точку
+           {
+               resultVertex.Add(plineGetFromUser.Polyline.Points.FirstPoint);
+               resultVertex.Add(plineGetFromUser.Polyline.Points.LastPoint);
+           }
+           else
+           {
+               var result = Vert.Except(delVert);// на LINQ с помощью метода Except можно получить разность двух множеств
+               foreach (var item in result)
+               {
+                   Point3d PointForList = new Point3d(item.X, item.Y, item.Z);
+                   resultVertex.Add(PointForList);
+               }
+           }
+               
+          Polyline3d PL3dFited = new Polyline3d(resultVertex);
         
-          if (plineForWork.Polyline.ClosedLogically == true)
+          if (plineGetFromUser.Polyline.ClosedLogically == true)
           {
-              PL3dRedused.SetClosed(true);
+              PL3dFited.SetClosed(true);
           }
-          DbPolyline PL = PL3dRedused;
 
-          if (delSoursePL == true)
+          if (delSoursePL == true)// проверка удалять ли исходную Pl - чекбокс в форме
           {
-              plineForWork.DbEntity.Erase();
+              plineGetFromUser.DbEntity.Erase();
           }
-          PL.DbEntity.AddToCurrentDocument();
+          plineGetFromUser = PL3dFited;
+          plineGetFromUser.DbEntity.AddToCurrentDocument();
           
        }
 
     }
+}

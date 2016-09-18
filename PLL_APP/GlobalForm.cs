@@ -91,7 +91,7 @@ namespace PLL_APP
 
         private void revers_Click(object sender, EventArgs e)
         {
-            ForWorkInForms.reversPolyline(ForWorkInForms.plineForWork);
+            ForWorkInForms.reversPolyline();
             pnlOnePnl.Enabled = false;
         }
 
@@ -102,7 +102,7 @@ namespace PLL_APP
         
         private void segmentToLines_Click(object sender, EventArgs e)
         {
-            ForWorkInForms.deletDuplicatedVertexPolyline(ForWorkInForms.plineForWork);
+            ForWorkInForms.deletDuplicatedVertexPolyline();
             pnlOnePnl.Enabled = false;
         }
 
@@ -134,9 +134,9 @@ namespace PLL_APP
         {
             delSoursePl = cbDelSoursePl.Checked;  
         }
-        private void btRedusePl_Click(object sender, EventArgs e)         
+        private void btFitPl_Click(object sender, EventArgs e)         
         {
-            ForWorkInForms.reducePolyline(ForWorkInForms.plineForWork,MaxLenghtSegPl,delSoursePl);      
+            ForWorkInForms.fitPolyline(MaxLenghtSegPl,delSoursePl);      
         }
    
               
