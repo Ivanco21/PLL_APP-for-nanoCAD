@@ -15,7 +15,7 @@ namespace PLL_APP
    partial class HandlerPolyline
     { 
         public void reversPolyline ()
-        {
+       {  
             PolylineProperties plForWork = new PolylineProperties(plineGetFromUser);
             List<Point3d> Vert = new List<Point3d>();
             Vert = plForWork.listVertecs(plineGetFromUser); 
@@ -39,12 +39,14 @@ namespace PLL_APP
             {
               reversPL3d.SetClosed(true);
             }
-
+            DbPolyline plForWrite = new DbPolyline();
+            
+            
+            plForWrite = reversPL3d;
+            plForWrite.DbEntity.MatchProperties(plineGetFromUser.DbEntity, MatchPropEnum.All);//копирование свойств
             plineGetFromUser.DbEntity.Erase();// удаляет исходную PL из чертежа
-            plineGetFromUser = reversPL3d;
-            // plineGetFromUser.DbEntity.Update(); 
-            plineGetFromUser.DbEntity.AddToCurrentDocument();
-            // Если вы с помощью выбора берете уже существующую полилинию, то это plineForWork.DbEntity.AddToCurrentDocument(); не нужно, можно есче добавить plineForWork.DbEntity.Update();                       
+            plForWrite.DbEntity.AddToCurrentDocument();
+                         
         }
 
         public void numberInDwg(int inputUserTextHeight) 

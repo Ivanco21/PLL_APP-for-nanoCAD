@@ -40,12 +40,12 @@
             this.vertInTable = new System.Windows.Forms.GroupBox();
             this.vertexInTable = new System.Windows.Forms.Button();
             this.cbAccuracyPoint = new System.Windows.Forms.ComboBox();
+            this.btExportInCsv = new System.Windows.Forms.Button();
             this.lbAccuracyPoint = new System.Windows.Forms.Label();
             this.numVertex = new System.Windows.Forms.GroupBox();
             this.btNumberVertInDwg = new System.Windows.Forms.Button();
             this.lbTextHeight = new System.Windows.Forms.Label();
             this.tbTextHeight = new System.Windows.Forms.TextBox();
-            this.btExportInCsv = new System.Windows.Forms.Button();
             this.revers = new System.Windows.Forms.Button();
             this.pnlOnePnl.SuspendLayout();
             this.gbRedusePl.SuspendLayout();
@@ -142,11 +142,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 159);
+            this.label1.Location = new System.Drawing.Point(-1, 159);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(307, 13);
+            this.label1.Size = new System.Drawing.Size(364, 13);
             this.label1.TabIndex = 10;
-            this.label1.Text = "После реверса и удаления одинаковых вершин перевыбор";
+            this.label1.Text = "После реверса, упростить и удаления одинаковых вершин перевыбор";
             // 
             // vertInTable
             // 
@@ -184,6 +184,16 @@
             this.cbAccuracyPoint.Size = new System.Drawing.Size(99, 21);
             this.cbAccuracyPoint.TabIndex = 2;
             this.cbAccuracyPoint.Text = "0.0";
+            // 
+            // btExportInCsv
+            // 
+            this.btExportInCsv.Location = new System.Drawing.Point(6, 54);
+            this.btExportInCsv.Name = "btExportInCsv";
+            this.btExportInCsv.Size = new System.Drawing.Size(147, 25);
+            this.btExportInCsv.TabIndex = 4;
+            this.btExportInCsv.Text = "Экспорт в файл";
+            this.btExportInCsv.UseVisualStyleBackColor = true;
+            this.btExportInCsv.Click += new System.EventHandler(this.ExportInCsv_Click);
             // 
             // lbAccuracyPoint
             // 
@@ -234,16 +244,6 @@
             this.tbTextHeight.Text = "250";
             this.tbTextHeight.TextChanged += new System.EventHandler(this.textHeight_TextChanged);
             // 
-            // btExportInCsv
-            // 
-            this.btExportInCsv.Location = new System.Drawing.Point(6, 54);
-            this.btExportInCsv.Name = "btExportInCsv";
-            this.btExportInCsv.Size = new System.Drawing.Size(147, 25);
-            this.btExportInCsv.TabIndex = 4;
-            this.btExportInCsv.Text = "Экспорт в файл";
-            this.btExportInCsv.UseVisualStyleBackColor = true;
-            this.btExportInCsv.Click += new System.EventHandler(this.ExportInCsv_Click);
-            // 
             // revers
             // 
             this.revers.Location = new System.Drawing.Point(15, 185);
@@ -265,7 +265,7 @@
             this.MaximizeBox = false;
             this.Name = "GlobalForm";
             this.ShowIcon = false;
-            this.Text = "PLL APP by Ivanco_v0.2";
+            this.Text = "PLL APP by Ivanco_v0.2(soldatov@infoind.info)";
             this.pnlOnePnl.ResumeLayout(false);
             this.pnlOnePnl.PerformLayout();
             this.gbRedusePl.ResumeLayout(false);

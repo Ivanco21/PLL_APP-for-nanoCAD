@@ -93,6 +93,7 @@ namespace PLL_APP
         {
             ForWorkInForms.reversPolyline();
             pnlOnePnl.Enabled = false;
+            btGetPL.Text = "Выберите полилинию";
         }
 
         private void ExportInCsv_Click(object sender, EventArgs e)
@@ -104,6 +105,7 @@ namespace PLL_APP
         {
             ForWorkInForms.deletDuplicatedVertexPolyline();
             pnlOnePnl.Enabled = false;
+            btGetPL.Text = "Выберите полилинию";
         }
 
         private void tbTolerance_TextChanged(object sender, EventArgs e)
@@ -136,7 +138,9 @@ namespace PLL_APP
         }
         private void btFitPl_Click(object sender, EventArgs e)         
         {
-            ForWorkInForms.fitPolyline(MaxLenghtSegPl,delSoursePl);      
+            ForWorkInForms.fitPolyline(MaxLenghtSegPl,delSoursePl);
+            pnlOnePnl.Enabled = false;
+            btGetPL.Text = "Выберите полилинию";
         }
    
               
