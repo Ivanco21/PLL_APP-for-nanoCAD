@@ -12,19 +12,25 @@ using Multicad.Runtime;
 
 namespace PLL_APP
 {
-   partial class HandlerPolyline
-    { 
+    partial class HandlerPolyline : DbPolyline
+    {
+        DbPolyline plineGetFromUser { get; set; }
+        public HandlerPolyline(DbPolyline Pl)
+        {
+            plineGetFromUser = Pl;
+        }
+
         public void reversPolyline ()
        {  
-            PolylineProperties plForWork = new PolylineProperties(plineGetFromUser);
+           
             List<Point3d> Vert = new List<Point3d>();
-            Vert = plForWork.listVertecs(plineGetFromUser); 
+            Vert = this.listVertecs(plineGetFromUser);
 
-            if (plForWork.closed == false)
+            if (this.Polyline.ClosedLogically == false)
             {
               Vert.Reverse();
             }
-            else if (plForWork.closeAndDuplicateVertex == true)
+            else if (this.closeAndDuplicateVertex == true)
             {
                 Vert.Reverse();
             }
@@ -40,20 +46,17 @@ namespace PLL_APP
               reversPL3d.SetClosed(true);
             }
             DbPolyline plForWrite = new DbPolyline();
-            
-            
+                      
             plForWrite = reversPL3d;
             plForWrite.DbEntity.MatchProperties(plineGetFromUser.DbEntity, MatchPropEnum.All);//копирование свойств
             plineGetFromUser.DbEntity.Erase();// удаляет исходную PL из чертежа
-            plForWrite.DbEntity.AddToCurrentDocument();
-                         
+            plForWrite.DbEntity.AddToCurrentDocument();                        
         }
 
         public void numberInDwg(int inputUserTextHeight) 
         {
-            PolylineProperties plForWork = new PolylineProperties(plineGetFromUser);
             List<Point3d> Vert = new List<Point3d>();
-            Vert = plForWork.listVertecs(plineGetFromUser);
+            Vert = this.listVertecs(plineGetFromUser);
 
             Vector3d forTextVector = new Vector3d(100, 0, 0);
             double hTx = inputUserTextHeight; // получаем от пользователя
@@ -73,9 +76,9 @@ namespace PLL_APP
 
         public McTable vertexInTable(DbPolyline plineGetFromUser, string accuracyPoint) 
         {
-            PolylineProperties plForWork = new PolylineProperties(plineGetFromUser);
+            
             List<Point3d> Vert = new List<Point3d>();
-            Vert = plForWork.listVertecs(plineGetFromUser);
+            Vert = this.listVertecs(plineGetFromUser);
 
             // создаем таблицу
             McTable TablePoint = new McTable();
@@ -93,14 +96,19 @@ namespace PLL_APP
             TablePoint[0, 1].Value = "X";
             TablePoint[0, 2].Value = "Y";
             TablePoint[0, 3].Value = "Z";
-
+            // учитываем  систему координат
+            McDocument doc = McDocument.WorkingDocument;
+            Matrix3d matCurrent = doc.UCS;
+            Matrix3d matUsc = matCurrent.Inverse(); 
+             
             //номера точек в ячейки и  координата X,Y,Z
             for (int i = 0; i < Vert.Count; i++)
             {
                 Point3d onePointAtList = new Point3d();
                 onePointAtList = Vert[i];
+                onePointAtList = onePointAtList.TransformBy(matUsc);// преобразуем в текущую систему координат
                 int j = i + 1;
-                // точность представления чисел в ячейках - получается из формы от пользователя , выбираем из enum 
+                // точность представления чисел в ячейках - получается из формы от пользователя 
                 switch (accuracyPoint)
                 {
                     case "0":
@@ -162,10 +170,10 @@ namespace PLL_APP
 
         public void deletDuplicatedVertexPolyline()
         {
-            PolylineProperties plForWork = new PolylineProperties(plineGetFromUser);
+            
             //на LINQ            
-            int i = plForWork.listVertecs(plineGetFromUser).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Count();
-            int j = plForWork.listVertecs(plineGetFromUser).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Distinct().Count();
+            int i = this.listVertecs(plineGetFromUser).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Count();
+            int j = this.listVertecs(plineGetFromUser).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Distinct().Count();
 
             if (i == j)
             {
@@ -173,7 +181,7 @@ namespace PLL_APP
               return;
             }
 
-            var list = plForWork.listVertecs(plineGetFromUser).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Distinct();
+            var list = this.listVertecs(plineGetFromUser).Select(CompareFactor => new { CompareFactor.X, CompareFactor.Y, CompareFactor.Z }).Distinct();
 
             List<Point3d> Vertex = new List<Point3d>();
             foreach (var item in list)
@@ -194,12 +202,12 @@ namespace PLL_APP
 
         public void fitPolyline(double tolerance, bool delSoursePL)
        {
-          PolylineProperties plForWork = new PolylineProperties(plineGetFromUser);
+         
           List<Point3d> Vert = new List<Point3d>();
           List<Point3d> delVert = new List<Point3d>();
-          Vert = plForWork.listVertecs(plineGetFromUser);
+          Vert = this.listVertecs(plineGetFromUser);
 
-          if (plForWork.closeAndDuplicateVertex == false && plineGetFromUser.Polyline.ClosedLogically == true)
+          if (this.closeAndDuplicateVertex == false && plineGetFromUser.Polyline.ClosedLogically == true)
           {
               for (uint i = 0; i < plineGetFromUser.Polyline.Segments.Count; i++)
               {
@@ -267,5 +275,32 @@ namespace PLL_APP
           
        }
 
+        public void renumerateVertex(int numStartVertex)
+        {
+            List<Point3d> getVert = new List<Point3d>();
+            getVert = this.listVertecs(plineGetFromUser);
+
+            List<Point3d> setVert = new List<Point3d>();
+           for( int i = numStartVertex - 1, j = 0; i < getVert.Count; i ++, j++)
+           {
+               setVert.Insert(j,getVert[i]);
+           }
+
+           for (int i = 0, j = setVert.Count; i < numStartVertex - 1; i++, j++)
+           {
+               setVert.Insert(j, getVert[i]);
+           }
+
+           Polyline3d plAfterRenumVert = new Polyline3d(setVert);
+           DbPolyline plForWrite = new DbPolyline();
+           if (plineGetFromUser.Polyline.ClosedLogically == true)
+           {
+               plAfterRenumVert.SetClosed(true);
+           }
+           plForWrite = plAfterRenumVert;
+           plForWrite.DbEntity.MatchProperties(plineGetFromUser.DbEntity, MatchPropEnum.All);//копирование свойств
+           plineGetFromUser.DbEntity.Erase();// удаляет исходную PL из чертежа
+           plForWrite.DbEntity.AddToCurrentDocument();
+        }
     }
 }

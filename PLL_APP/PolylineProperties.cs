@@ -9,16 +9,14 @@ using Multicad.Geometry;
 
 namespace PLL_APP
 {
-   public class PolylineProperties: DbPolyline
+   partial class HandlerPolyline : DbPolyline
     {
-        public bool closed { get; set; }
-        public bool closeAndDuplicateVertex { get; set; }
+      
+        bool closeAndDuplicateVertex { get; set; }
 
-        public PolylineProperties(DbPolyline plineItem)
+         void PolylineProperties(DbPolyline plineItem)
         {
-            this.closed = plineItem.Polyline.ClosedLogically;
-
-            if(plineItem.Polyline.ClosedLogically == true && (plineItem.Polyline.Vertices.First().Point.X == plineItem.Polyline.Vertices.Last().Point.X)
+            if(plineItem.Polyline.ClosedLogically == true     && (plineItem.Polyline.Vertices.First().Point.X == plineItem.Polyline.Vertices.Last().Point.X)
                                                               && (plineItem.Polyline.Vertices.First().Point.Y == plineItem.Polyline.Vertices.Last().Point.Y)
                                                               && (plineItem.Polyline.Vertices.First().Point.Z == plineItem.Polyline.Vertices.Last().Point.Z))
             {
@@ -29,8 +27,7 @@ namespace PLL_APP
               this.closeAndDuplicateVertex = false;
             }
         }
-
-        public List<Point3d> listVertecs(DbPolyline plineItem)
+         List<Point3d> listVertecs(DbPolyline plineItem)
         {
             List<Point3d> Vertices = new List<Point3d>();
             // собираем все вершины в list

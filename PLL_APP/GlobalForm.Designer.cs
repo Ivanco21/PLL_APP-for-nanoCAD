@@ -30,6 +30,10 @@
         {
             this.btGetPL = new System.Windows.Forms.Button();
             this.pnlOnePnl = new System.Windows.Forms.Panel();
+            this.gbRenumerateVertexPl = new System.Windows.Forms.GroupBox();
+            this.lbInfoAboutPl = new System.Windows.Forms.Label();
+            this.btnRenumVertexInPl = new System.Windows.Forms.Button();
+            this.dmUpDwnVertexInPl = new System.Windows.Forms.DomainUpDown();
             this.gbRedusePl = new System.Windows.Forms.GroupBox();
             this.lbTolerance = new System.Windows.Forms.Label();
             this.tbTolerance = new System.Windows.Forms.TextBox();
@@ -48,6 +52,7 @@
             this.tbTextHeight = new System.Windows.Forms.TextBox();
             this.revers = new System.Windows.Forms.Button();
             this.pnlOnePnl.SuspendLayout();
+            this.gbRenumerateVertexPl.SuspendLayout();
             this.gbRedusePl.SuspendLayout();
             this.vertInTable.SuspendLayout();
             this.numVertex.SuspendLayout();
@@ -66,6 +71,7 @@
             // pnlOnePnl
             // 
             this.pnlOnePnl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlOnePnl.Controls.Add(this.gbRenumerateVertexPl);
             this.pnlOnePnl.Controls.Add(this.gbRedusePl);
             this.pnlOnePnl.Controls.Add(this.DelDuplicateVertexPl);
             this.pnlOnePnl.Controls.Add(this.label1);
@@ -75,8 +81,46 @@
             this.pnlOnePnl.Enabled = false;
             this.pnlOnePnl.Location = new System.Drawing.Point(12, 41);
             this.pnlOnePnl.Name = "pnlOnePnl";
-            this.pnlOnePnl.Size = new System.Drawing.Size(368, 304);
+            this.pnlOnePnl.Size = new System.Drawing.Size(368, 412);
             this.pnlOnePnl.TabIndex = 1;
+            // 
+            // gbRenumerateVertexPl
+            // 
+            this.gbRenumerateVertexPl.Controls.Add(this.lbInfoAboutPl);
+            this.gbRenumerateVertexPl.Controls.Add(this.btnRenumVertexInPl);
+            this.gbRenumerateVertexPl.Controls.Add(this.dmUpDwnVertexInPl);
+            this.gbRenumerateVertexPl.Location = new System.Drawing.Point(9, 162);
+            this.gbRenumerateVertexPl.Name = "gbRenumerateVertexPl";
+            this.gbRenumerateVertexPl.Size = new System.Drawing.Size(348, 87);
+            this.gbRenumerateVertexPl.TabIndex = 13;
+            this.gbRenumerateVertexPl.TabStop = false;
+            // 
+            // lbInfoAboutPl
+            // 
+            this.lbInfoAboutPl.AutoSize = true;
+            this.lbInfoAboutPl.Location = new System.Drawing.Point(88, 16);
+            this.lbInfoAboutPl.Name = "lbInfoAboutPl";
+            this.lbInfoAboutPl.Size = new System.Drawing.Size(180, 13);
+            this.lbInfoAboutPl.TabIndex = 2;
+            this.lbInfoAboutPl.Text = "Только для замкнутых полилиний";
+            // 
+            // btnRenumVertexInPl
+            // 
+            this.btnRenumVertexInPl.Location = new System.Drawing.Point(6, 46);
+            this.btnRenumVertexInPl.Name = "btnRenumVertexInPl";
+            this.btnRenumVertexInPl.Size = new System.Drawing.Size(147, 35);
+            this.btnRenumVertexInPl.TabIndex = 1;
+            this.btnRenumVertexInPl.Text = "Перенумерация вершин";
+            this.btnRenumVertexInPl.UseVisualStyleBackColor = true;
+            this.btnRenumVertexInPl.Click += new System.EventHandler(this.btnRenumVertexInPl_Click);
+            // 
+            // dmUpDwnVertexInPl
+            // 
+            this.dmUpDwnVertexInPl.Location = new System.Drawing.Point(214, 55);
+            this.dmUpDwnVertexInPl.Name = "dmUpDwnVertexInPl";
+            this.dmUpDwnVertexInPl.ReadOnly = true;
+            this.dmUpDwnVertexInPl.Size = new System.Drawing.Size(117, 20);
+            this.dmUpDwnVertexInPl.TabIndex = 0;
             // 
             // gbRedusePl
             // 
@@ -84,7 +128,7 @@
             this.gbRedusePl.Controls.Add(this.tbTolerance);
             this.gbRedusePl.Controls.Add(this.btRedusePl);
             this.gbRedusePl.Controls.Add(this.cbDelSoursePl);
-            this.gbRedusePl.Location = new System.Drawing.Point(9, 216);
+            this.gbRedusePl.Location = new System.Drawing.Point(9, 330);
             this.gbRedusePl.Name = "gbRedusePl";
             this.gbRedusePl.Size = new System.Drawing.Size(348, 77);
             this.gbRedusePl.TabIndex = 12;
@@ -131,7 +175,7 @@
             // 
             // DelDuplicateVertexPl
             // 
-            this.DelDuplicateVertexPl.Location = new System.Drawing.Point(165, 185);
+            this.DelDuplicateVertexPl.Location = new System.Drawing.Point(172, 299);
             this.DelDuplicateVertexPl.Name = "DelDuplicateVertexPl";
             this.DelDuplicateVertexPl.Size = new System.Drawing.Size(185, 25);
             this.DelDuplicateVertexPl.TabIndex = 11;
@@ -142,7 +186,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(-1, 159);
+            this.label1.Location = new System.Drawing.Point(3, 274);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(364, 13);
             this.label1.TabIndex = 10;
@@ -246,7 +290,7 @@
             // 
             // revers
             // 
-            this.revers.Location = new System.Drawing.Point(15, 185);
+            this.revers.Location = new System.Drawing.Point(15, 299);
             this.revers.Name = "revers";
             this.revers.Size = new System.Drawing.Size(75, 25);
             this.revers.TabIndex = 0;
@@ -258,16 +302,18 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 353);
+            this.ClientSize = new System.Drawing.Size(392, 465);
             this.Controls.Add(this.pnlOnePnl);
             this.Controls.Add(this.btGetPL);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "GlobalForm";
             this.ShowIcon = false;
-            this.Text = "PLL APP by Ivanco_v0.2(soldatov@infoind.info)";
+            this.Text = "PLL APP by Ivanco_v0.2  (soldatov@infoind.info)";
             this.pnlOnePnl.ResumeLayout(false);
             this.pnlOnePnl.PerformLayout();
+            this.gbRenumerateVertexPl.ResumeLayout(false);
+            this.gbRenumerateVertexPl.PerformLayout();
             this.gbRedusePl.ResumeLayout(false);
             this.gbRedusePl.PerformLayout();
             this.vertInTable.ResumeLayout(false);
@@ -299,5 +345,9 @@
         private System.Windows.Forms.TextBox tbTolerance;
         private System.Windows.Forms.Button btRedusePl;
         private System.Windows.Forms.CheckBox cbDelSoursePl;
+        private System.Windows.Forms.GroupBox gbRenumerateVertexPl;
+        private System.Windows.Forms.Button btnRenumVertexInPl;
+        private System.Windows.Forms.DomainUpDown dmUpDwnVertexInPl;
+        private System.Windows.Forms.Label lbInfoAboutPl;
     }
 }

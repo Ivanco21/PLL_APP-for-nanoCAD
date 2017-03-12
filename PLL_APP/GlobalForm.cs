@@ -24,45 +24,64 @@ namespace PLL_APP
         {
             InitializeComponent();
         }
-
-        HandlerPolyline ForWorkInForms = new HandlerPolyline();
+        HandlerPolyline onePl; 
         public double inputUserTextHeight = 250;// также 250 записано здесь  this.textHeight.Text, что вероятно неправильно(дублирование).      
         public double MaxLenghtSegPl = 50;
-        public bool delSoursePl = false;   
+        public bool delSoursePl = false;
+   
       
         private void GetPL_Click(object sender, EventArgs e)
         {
-            try
-            {
+            OneGeometry onePl = new OneGeometry();
+            onePl.sendDataOnePlInForm += new EventHandler<UserEventArgsOnePlProp>(other_sendDataOnePlInForm);
+            onePl.DoEventSendDataOnePlInForm();
+ 
+        }
 
-                if (ForWorkInForms.getFromDwg() == true)
+        private void other_sendDataOnePlInForm(object sender, UserEventArgsOnePlProp e)
+        {
+            if(e.CorrectlyGet == true)
+            {
+                pnlOnePnl.Enabled = true;
+                btGetPL.Text = "Полилиния выбрана!Изменить?";
+
+                // ренумерация вершин только для замкнутых линий                
+                if (e.ClosedPl == false)
                 {
-                    pnlOnePnl.Enabled = true;
-                    btGetPL.Text = "Полилиния выбрана!Изменить?";
+                    gbRenumerateVertexPl.Enabled = false;// ренумерация вершин только для замкнутых линий
                 }
                 else
                 {
-                    pnlOnePnl.Enabled = false;
-                    btGetPL.Text = "Выберите полилинию";
-                    MessageBox.Show("Выбрана не полилиния и не 3D полилиния!");
+                    gbRenumerateVertexPl.Enabled = true;
+                    DomainUpDown.DomainUpDownItemCollection vertexCollection = this.dmUpDwnVertexInPl.Items;
 
+                    for (int i = 1; i <= e.PlVertexCount; i++)
+                    {
+                        vertexCollection.Add(i);
+                    }
+                    dmUpDwnVertexInPl.Text = "1"; // инциализация начальной вершины, для выбора
                 }
             }
-            catch (Exception ex)
+            else
             {
-                // обработчик сделать чтобы ловил клики по кнопкам нано
-                MessageBox.Show("Ошибка: " + ex.Message);
+                pnlOnePnl.Enabled = false;
+                btGetPL.Text = "Выберите полилинию";
+                MessageBox.Show("Выбрана не полилиния и не 3D полилиния!");
+                return;
             }
+
+            HandlerPolyline onePolyline = new HandlerPolyline(e.PlineGetFromUser);
+            onePl = onePolyline;
         }
 
         private void vertexInTable_Click(object sender, EventArgs e)
         {
-            ForWorkInForms.vertexInTableOutDwg(cbAccuracyPoint.Text);
+            onePl.vertexInTableOutDwg(cbAccuracyPoint.Text);
         }
 
         private void numberInDwg_Click(object sender, EventArgs e)
         {
-            ForWorkInForms.numberInDwg(Convert.ToInt32(inputUserTextHeight));            
+            onePl.numberInDwg(Convert.ToInt32(inputUserTextHeight));            
         }
      
         private void textHeight_TextChanged(object sender, EventArgs e)
@@ -91,19 +110,19 @@ namespace PLL_APP
 
         private void revers_Click(object sender, EventArgs e)
         {
-            ForWorkInForms.reversPolyline();
+            onePl.reversPolyline();
             pnlOnePnl.Enabled = false;
             btGetPL.Text = "Выберите полилинию";
         }
 
         private void ExportInCsv_Click(object sender, EventArgs e)
         {
-            ForWorkInForms.vertexInTableOutCsv(cbAccuracyPoint.Text);
+           onePl.vertexInTableOutCsv(cbAccuracyPoint.Text);
         }
         
         private void segmentToLines_Click(object sender, EventArgs e)
         {
-            ForWorkInForms.deletDuplicatedVertexPolyline();
+            onePl.deletDuplicatedVertexPolyline();
             pnlOnePnl.Enabled = false;
             btGetPL.Text = "Выберите полилинию";
         }
@@ -138,11 +157,14 @@ namespace PLL_APP
         }
         private void btFitPl_Click(object sender, EventArgs e)         
         {
-            ForWorkInForms.fitPolyline(MaxLenghtSegPl,delSoursePl);
+            onePl.fitPolyline(MaxLenghtSegPl, delSoursePl);
             pnlOnePnl.Enabled = false;
             btGetPL.Text = "Выберите полилинию";
         }
-   
-              
+
+        private void btnRenumVertexInPl_Click(object sender, EventArgs e)
+        {
+            onePl.renumerateVertex(Convert.ToInt32(dmUpDwnVertexInPl.Text));
+        }                  
     }
  }
