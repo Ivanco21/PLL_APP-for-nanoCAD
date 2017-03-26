@@ -10,13 +10,13 @@ using Multicad.DatabaseServices.StandardObjects;
 
 namespace PLL_APP
 { 
-    class OneGeometry
+    class OnePolylineSelector
     {
         DbPolyline plineGetFromUser;
         bool correctlyGet;
         bool closedPl;
         int plVertexCount;
-        public OneGeometry()
+        public OnePolylineSelector()
         {
            getOnePlFromDwg();
            closedPl = plineGetFromUser.Polyline.ClosedLogically;
@@ -30,8 +30,6 @@ namespace PLL_APP
             if (sendDataOnePlInForm != null)
                 sendDataOnePlInForm(this, new UserEventArgsOnePlProp(plineGetFromUser, correctlyGet, closedPl, plVertexCount));
         }
-
-
         void getOnePlFromDwg()
         {
             try
@@ -59,4 +57,56 @@ namespace PLL_APP
             }             
         }
      }
+    class OneObjSelector
+    {
+        DbGeometry fromUserSelect;
+        McBlockRef blockUserSelect;
+        bool correctlyGet;
+
+        public OneObjSelector()
+        {
+           getOneObgFromDwg();      
+        }
+
+        public event EventHandler<UserEventArgsOneObjProp> sendDataOneObjInForm;
+
+        public void DoEventSendDataOneObjInForm()
+        {
+            if (sendDataOneObjInForm != null)
+                sendDataOneObjInForm(this, new UserEventArgsOneObjProp(fromUserSelect, blockUserSelect, correctlyGet));
+        }
+
+
+        private void getOneObgFromDwg()
+        {
+            try
+            {
+                
+                Multicad.McObjectId idSelected = McObjectManager.SelectObject("Выберите объект для расстановки");
+                Multicad.McObject targetObj = idSelected.GetObject();
+
+                if (targetObj is DbGeometry)
+                {
+                    this.fromUserSelect = targetObj as DbGeometry;
+                    this.correctlyGet = true;
+                }
+                else if(targetObj is McBlockRef)
+                {
+                    this.blockUserSelect = targetObj as McBlockRef;
+                    this.correctlyGet = true;                   
+                }
+                else
+                {
+                    this.correctlyGet = false;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }             
+        }
+
+
+    }
 }

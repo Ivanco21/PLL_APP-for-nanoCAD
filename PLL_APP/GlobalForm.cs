@@ -24,7 +24,9 @@ namespace PLL_APP
         {
             InitializeComponent();
         }
-        HandlerPolyline onePl; 
+        HandlerPolyline onePl;
+        DbGeometry geomUserSelect;
+        McBlockRef blockUserSelect;
         public double inputUserTextHeight = 250;// также 250 записано здесь  this.textHeight.Text, что вероятно неправильно(дублирование).      
         public double MaxLenghtSegPl = 50;
         public bool delSoursePl = false;
@@ -32,7 +34,7 @@ namespace PLL_APP
       
         private void GetPL_Click(object sender, EventArgs e)
         {
-            OneGeometry onePl = new OneGeometry();
+            OnePolylineSelector onePl = new OnePolylineSelector();
             onePl.sendDataOnePlInForm += new EventHandler<UserEventArgsOnePlProp>(other_sendDataOnePlInForm);
             onePl.DoEventSendDataOnePlInForm();
  
@@ -165,6 +167,58 @@ namespace PLL_APP
         private void btnRenumVertexInPl_Click(object sender, EventArgs e)
         {
             onePl.renumerateVertex(Convert.ToInt32(dmUpDwnVertexInPl.Text));
+        }
+
+        private void btnGetObj_Click(object sender, EventArgs e)
+        {
+            OneObjSelector objForPlace = new OneObjSelector();
+            objForPlace.sendDataOneObjInForm += new EventHandler<UserEventArgsOneObjProp>(other_sendDatObjPlInForm);
+            objForPlace.DoEventSendDataOneObjInForm();
+        }
+
+        private void other_sendDatObjPlInForm(object sender, UserEventArgsOneObjProp e)
+        {
+            if (e.CorrectlyGet == true)
+            {
+                btnPlaceGeom.Enabled = true;
+                btnGetObj.Text = "Выбрано!Изменить?";
+            }
+            else
+            {
+                btnGetObj.Text = "Выберите объект";
+                MessageBox.Show("Выбран не поддерживаемый тип ");
+                return;
+            }
+
+            // какой тип объекта получили 
+            if(e.BlockUserSelect != null)
+            {
+                blockUserSelect = e.BlockUserSelect; 
+            }
+            else
+            {
+                geomUserSelect = e.ObjFromUser;
+            }
+        }
+
+        private void btnPlaceGeom_Click(object sender, EventArgs e)
+        {
+            // какой тип объекта расставляем
+            if (geomUserSelect != null)
+            {
+                ObjPlaced place = new ObjPlaced (ref geomUserSelect, ref onePl);
+                place.geometryPlaceToPlVertex();
+            }
+            else
+            {
+              
+            }
+
+        }
+
+        private void linkMoney_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://money.yandex.ru/to/41001456523527");
         }                  
     }
  }

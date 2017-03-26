@@ -27,7 +27,7 @@ namespace PLL_APP
               this.closeAndDuplicateVertex = false;
             }
         }
-         List<Point3d> listVertecs(DbPolyline plineItem)
+        public  List<Point3d> listVertecs(DbPolyline plineItem)
         {
             List<Point3d> Vertices = new List<Point3d>();
             // собираем все вершины в list

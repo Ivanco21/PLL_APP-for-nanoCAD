@@ -30,6 +30,10 @@
         {
             this.btGetPL = new System.Windows.Forms.Button();
             this.pnlOnePnl = new System.Windows.Forms.Panel();
+            this.gbGeomtoVertexPl = new System.Windows.Forms.GroupBox();
+            this.btnPlaceGeom = new System.Windows.Forms.Button();
+            this.lbGeomToPlVert = new System.Windows.Forms.Label();
+            this.btnGetObj = new System.Windows.Forms.Button();
             this.gbRenumerateVertexPl = new System.Windows.Forms.GroupBox();
             this.lbInfoAboutPl = new System.Windows.Forms.Label();
             this.btnRenumVertexInPl = new System.Windows.Forms.Button();
@@ -51,7 +55,10 @@
             this.lbTextHeight = new System.Windows.Forms.Label();
             this.tbTextHeight = new System.Windows.Forms.TextBox();
             this.revers = new System.Windows.Forms.Button();
+            this.lbLinkMoney = new System.Windows.Forms.LinkLabel();
+            this.lbPleaseGiveMoney = new System.Windows.Forms.Label();
             this.pnlOnePnl.SuspendLayout();
+            this.gbGeomtoVertexPl.SuspendLayout();
             this.gbRenumerateVertexPl.SuspendLayout();
             this.gbRedusePl.SuspendLayout();
             this.vertInTable.SuspendLayout();
@@ -71,6 +78,7 @@
             // pnlOnePnl
             // 
             this.pnlOnePnl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlOnePnl.Controls.Add(this.gbGeomtoVertexPl);
             this.pnlOnePnl.Controls.Add(this.gbRenumerateVertexPl);
             this.pnlOnePnl.Controls.Add(this.gbRedusePl);
             this.pnlOnePnl.Controls.Add(this.DelDuplicateVertexPl);
@@ -81,8 +89,49 @@
             this.pnlOnePnl.Enabled = false;
             this.pnlOnePnl.Location = new System.Drawing.Point(12, 41);
             this.pnlOnePnl.Name = "pnlOnePnl";
-            this.pnlOnePnl.Size = new System.Drawing.Size(368, 412);
+            this.pnlOnePnl.Size = new System.Drawing.Size(368, 534);
             this.pnlOnePnl.TabIndex = 1;
+            // 
+            // gbGeomtoVertexPl
+            // 
+            this.gbGeomtoVertexPl.Controls.Add(this.btnPlaceGeom);
+            this.gbGeomtoVertexPl.Controls.Add(this.lbGeomToPlVert);
+            this.gbGeomtoVertexPl.Controls.Add(this.btnGetObj);
+            this.gbGeomtoVertexPl.Location = new System.Drawing.Point(6, 343);
+            this.gbGeomtoVertexPl.Name = "gbGeomtoVertexPl";
+            this.gbGeomtoVertexPl.Size = new System.Drawing.Size(357, 78);
+            this.gbGeomtoVertexPl.TabIndex = 14;
+            this.gbGeomtoVertexPl.TabStop = false;
+            // 
+            // btnPlaceGeom
+            // 
+            this.btnPlaceGeom.Enabled = false;
+            this.btnPlaceGeom.Location = new System.Drawing.Point(187, 45);
+            this.btnPlaceGeom.Name = "btnPlaceGeom";
+            this.btnPlaceGeom.Size = new System.Drawing.Size(147, 27);
+            this.btnPlaceGeom.TabIndex = 2;
+            this.btnPlaceGeom.Text = "Расставить";
+            this.btnPlaceGeom.UseVisualStyleBackColor = true;
+            this.btnPlaceGeom.Click += new System.EventHandler(this.btnPlaceGeom_Click);
+            // 
+            // lbGeomToPlVert
+            // 
+            this.lbGeomToPlVert.AutoSize = true;
+            this.lbGeomToPlVert.Location = new System.Drawing.Point(45, 16);
+            this.lbGeomToPlVert.Name = "lbGeomToPlVert";
+            this.lbGeomToPlVert.Size = new System.Drawing.Size(257, 13);
+            this.lbGeomToPlVert.TabIndex = 1;
+            this.lbGeomToPlVert.Text = "Расстановка геометрии по вершинам полилинии";
+            // 
+            // btnGetObj
+            // 
+            this.btnGetObj.Location = new System.Drawing.Point(9, 45);
+            this.btnGetObj.Name = "btnGetObj";
+            this.btnGetObj.Size = new System.Drawing.Size(147, 27);
+            this.btnGetObj.TabIndex = 0;
+            this.btnGetObj.Text = "Выберите объект";
+            this.btnGetObj.UseVisualStyleBackColor = true;
+            this.btnGetObj.Click += new System.EventHandler(this.btnGetObj_Click);
             // 
             // gbRenumerateVertexPl
             // 
@@ -108,9 +157,9 @@
             // 
             this.btnRenumVertexInPl.Location = new System.Drawing.Point(6, 46);
             this.btnRenumVertexInPl.Name = "btnRenumVertexInPl";
-            this.btnRenumVertexInPl.Size = new System.Drawing.Size(147, 35);
+            this.btnRenumVertexInPl.Size = new System.Drawing.Size(202, 35);
             this.btnRenumVertexInPl.TabIndex = 1;
-            this.btnRenumVertexInPl.Text = "Перенумерация вершин";
+            this.btnRenumVertexInPl.Text = "Перенумерация вершин из 1 в ->";
             this.btnRenumVertexInPl.UseVisualStyleBackColor = true;
             this.btnRenumVertexInPl.Click += new System.EventHandler(this.btnRenumVertexInPl_Click);
             // 
@@ -128,7 +177,7 @@
             this.gbRedusePl.Controls.Add(this.tbTolerance);
             this.gbRedusePl.Controls.Add(this.btRedusePl);
             this.gbRedusePl.Controls.Add(this.cbDelSoursePl);
-            this.gbRedusePl.Location = new System.Drawing.Point(9, 330);
+            this.gbRedusePl.Location = new System.Drawing.Point(15, 444);
             this.gbRedusePl.Name = "gbRedusePl";
             this.gbRedusePl.Size = new System.Drawing.Size(348, 77);
             this.gbRedusePl.TabIndex = 12;
@@ -298,11 +347,34 @@
             this.revers.UseVisualStyleBackColor = true;
             this.revers.Click += new System.EventHandler(this.revers_Click);
             // 
+            // lbLinkMoney
+            // 
+            this.lbLinkMoney.AutoSize = true;
+            this.lbLinkMoney.Location = new System.Drawing.Point(286, 597);
+            this.lbLinkMoney.Name = "lbLinkMoney";
+            this.lbLinkMoney.Size = new System.Drawing.Size(83, 13);
+            this.lbLinkMoney.TabIndex = 2;
+            this.lbLinkMoney.TabStop = true;
+            this.lbLinkMoney.Text = "ЯндексДеньги";
+            this.lbLinkMoney.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkMoney_LinkClicked);
+            // 
+            // lbPleaseGiveMoney
+            // 
+            this.lbPleaseGiveMoney.AutoSize = true;
+            this.lbPleaseGiveMoney.Location = new System.Drawing.Point(31, 584);
+            this.lbPleaseGiveMoney.Name = "lbPleaseGiveMoney";
+            this.lbPleaseGiveMoney.Size = new System.Drawing.Size(225, 26);
+            this.lbPleaseGiveMoney.TabIndex = 3;
+            this.lbPleaseGiveMoney.Text = "Прогресc в разработке двигают печеньки,\r\nсказать спасибо/на печеньки        -----" +
+    "---->>";
+            // 
             // GlobalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 465);
+            this.ClientSize = new System.Drawing.Size(392, 619);
+            this.Controls.Add(this.lbPleaseGiveMoney);
+            this.Controls.Add(this.lbLinkMoney);
             this.Controls.Add(this.pnlOnePnl);
             this.Controls.Add(this.btGetPL);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -312,6 +384,8 @@
             this.Text = "PLL APP by Ivanco_v0.2  (soldatov@infoind.info)";
             this.pnlOnePnl.ResumeLayout(false);
             this.pnlOnePnl.PerformLayout();
+            this.gbGeomtoVertexPl.ResumeLayout(false);
+            this.gbGeomtoVertexPl.PerformLayout();
             this.gbRenumerateVertexPl.ResumeLayout(false);
             this.gbRenumerateVertexPl.PerformLayout();
             this.gbRedusePl.ResumeLayout(false);
@@ -321,6 +395,7 @@
             this.numVertex.ResumeLayout(false);
             this.numVertex.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -349,5 +424,11 @@
         private System.Windows.Forms.Button btnRenumVertexInPl;
         private System.Windows.Forms.DomainUpDown dmUpDwnVertexInPl;
         private System.Windows.Forms.Label lbInfoAboutPl;
+        private System.Windows.Forms.GroupBox gbGeomtoVertexPl;
+        private System.Windows.Forms.Button btnPlaceGeom;
+        private System.Windows.Forms.Label lbGeomToPlVert;
+        private System.Windows.Forms.Button btnGetObj;
+        private System.Windows.Forms.LinkLabel lbLinkMoney;
+        private System.Windows.Forms.Label lbPleaseGiveMoney;
     }
 }

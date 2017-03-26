@@ -23,6 +23,20 @@ namespace PLL_APP
       }
 
   }
+  class UserEventArgsOneObjProp : EventArgs
+  {
+      public readonly DbGeometry ObjFromUser;
+      public readonly McBlockRef BlockUserSelect;
+      public readonly bool CorrectlyGet;
+
+      public UserEventArgsOneObjProp(DbGeometry objFromUser,McBlockRef blockUserSelect, bool correctlyGet)
+      {
+          ObjFromUser = objFromUser;
+          CorrectlyGet = correctlyGet;
+          BlockUserSelect = blockUserSelect;
+      }
+
+  }
 
 
 

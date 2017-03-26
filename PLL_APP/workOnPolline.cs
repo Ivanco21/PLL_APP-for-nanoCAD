@@ -14,7 +14,7 @@ namespace PLL_APP
 {
     partial class HandlerPolyline : DbPolyline
     {
-        DbPolyline plineGetFromUser { get; set; }
+       public DbPolyline plineGetFromUser { get; set; }
         public HandlerPolyline(DbPolyline Pl)
         {
             plineGetFromUser = Pl;
