@@ -57,6 +57,8 @@
             this.revers = new System.Windows.Forms.Button();
             this.lbLinkMoney = new System.Windows.Forms.LinkLabel();
             this.lbPleaseGiveMoney = new System.Windows.Forms.Label();
+            this.cbStartNumerateAbout = new System.Windows.Forms.CheckBox();
+            this.tbStartNumerateNumber = new System.Windows.Forms.TextBox();
             this.pnlOnePnl.SuspendLayout();
             this.gbGeomtoVertexPl.SuspendLayout();
             this.gbRenumerateVertexPl.SuspendLayout();
@@ -89,7 +91,7 @@
             this.pnlOnePnl.Enabled = false;
             this.pnlOnePnl.Location = new System.Drawing.Point(12, 41);
             this.pnlOnePnl.Name = "pnlOnePnl";
-            this.pnlOnePnl.Size = new System.Drawing.Size(368, 534);
+            this.pnlOnePnl.Size = new System.Drawing.Size(368, 522);
             this.pnlOnePnl.TabIndex = 1;
             // 
             // gbGeomtoVertexPl
@@ -97,7 +99,7 @@
             this.gbGeomtoVertexPl.Controls.Add(this.btnPlaceGeom);
             this.gbGeomtoVertexPl.Controls.Add(this.lbGeomToPlVert);
             this.gbGeomtoVertexPl.Controls.Add(this.btnGetObj);
-            this.gbGeomtoVertexPl.Location = new System.Drawing.Point(6, 343);
+            this.gbGeomtoVertexPl.Location = new System.Drawing.Point(3, 291);
             this.gbGeomtoVertexPl.Name = "gbGeomtoVertexPl";
             this.gbGeomtoVertexPl.Size = new System.Drawing.Size(357, 78);
             this.gbGeomtoVertexPl.TabIndex = 14;
@@ -138,24 +140,25 @@
             this.gbRenumerateVertexPl.Controls.Add(this.lbInfoAboutPl);
             this.gbRenumerateVertexPl.Controls.Add(this.btnRenumVertexInPl);
             this.gbRenumerateVertexPl.Controls.Add(this.dmUpDwnVertexInPl);
-            this.gbRenumerateVertexPl.Location = new System.Drawing.Point(9, 162);
+            this.gbRenumerateVertexPl.Location = new System.Drawing.Point(9, 189);
             this.gbRenumerateVertexPl.Name = "gbRenumerateVertexPl";
-            this.gbRenumerateVertexPl.Size = new System.Drawing.Size(348, 87);
+            this.gbRenumerateVertexPl.Size = new System.Drawing.Size(348, 96);
             this.gbRenumerateVertexPl.TabIndex = 13;
             this.gbRenumerateVertexPl.TabStop = false;
             // 
             // lbInfoAboutPl
             // 
             this.lbInfoAboutPl.AutoSize = true;
-            this.lbInfoAboutPl.Location = new System.Drawing.Point(88, 16);
+            this.lbInfoAboutPl.Location = new System.Drawing.Point(0, 16);
             this.lbInfoAboutPl.Name = "lbInfoAboutPl";
-            this.lbInfoAboutPl.Size = new System.Drawing.Size(180, 13);
+            this.lbInfoAboutPl.Size = new System.Drawing.Size(304, 26);
             this.lbInfoAboutPl.TabIndex = 2;
-            this.lbInfoAboutPl.Text = "Только для замкнутых полилиний";
+            this.lbInfoAboutPl.Text = "Только для замкнутых полилиний\r\n(генерация новой линий с измененным порядком верш" +
+    "ин)";
             // 
             // btnRenumVertexInPl
             // 
-            this.btnRenumVertexInPl.Location = new System.Drawing.Point(6, 46);
+            this.btnRenumVertexInPl.Location = new System.Drawing.Point(6, 55);
             this.btnRenumVertexInPl.Name = "btnRenumVertexInPl";
             this.btnRenumVertexInPl.Size = new System.Drawing.Size(202, 35);
             this.btnRenumVertexInPl.TabIndex = 1;
@@ -165,7 +168,7 @@
             // 
             // dmUpDwnVertexInPl
             // 
-            this.dmUpDwnVertexInPl.Location = new System.Drawing.Point(214, 55);
+            this.dmUpDwnVertexInPl.Location = new System.Drawing.Point(216, 64);
             this.dmUpDwnVertexInPl.Name = "dmUpDwnVertexInPl";
             this.dmUpDwnVertexInPl.ReadOnly = true;
             this.dmUpDwnVertexInPl.Size = new System.Drawing.Size(117, 20);
@@ -177,7 +180,7 @@
             this.gbRedusePl.Controls.Add(this.tbTolerance);
             this.gbRedusePl.Controls.Add(this.btRedusePl);
             this.gbRedusePl.Controls.Add(this.cbDelSoursePl);
-            this.gbRedusePl.Location = new System.Drawing.Point(15, 444);
+            this.gbRedusePl.Location = new System.Drawing.Point(3, 375);
             this.gbRedusePl.Name = "gbRedusePl";
             this.gbRedusePl.Size = new System.Drawing.Size(348, 77);
             this.gbRedusePl.TabIndex = 12;
@@ -224,7 +227,7 @@
             // 
             // DelDuplicateVertexPl
             // 
-            this.DelDuplicateVertexPl.Location = new System.Drawing.Point(172, 299);
+            this.DelDuplicateVertexPl.Location = new System.Drawing.Point(166, 482);
             this.DelDuplicateVertexPl.Name = "DelDuplicateVertexPl";
             this.DelDuplicateVertexPl.Size = new System.Drawing.Size(185, 25);
             this.DelDuplicateVertexPl.TabIndex = 11;
@@ -235,7 +238,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 274);
+            this.label1.Location = new System.Drawing.Point(0, 455);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(364, 13);
             this.label1.TabIndex = 10;
@@ -299,12 +302,14 @@
             // 
             // numVertex
             // 
+            this.numVertex.Controls.Add(this.tbStartNumerateNumber);
+            this.numVertex.Controls.Add(this.cbStartNumerateAbout);
             this.numVertex.Controls.Add(this.btNumberVertInDwg);
             this.numVertex.Controls.Add(this.lbTextHeight);
             this.numVertex.Controls.Add(this.tbTextHeight);
             this.numVertex.Location = new System.Drawing.Point(9, 96);
             this.numVertex.Name = "numVertex";
-            this.numVertex.Size = new System.Drawing.Size(348, 60);
+            this.numVertex.Size = new System.Drawing.Size(348, 93);
             this.numVertex.TabIndex = 8;
             this.numVertex.TabStop = false;
             // 
@@ -312,7 +317,7 @@
             // 
             this.btNumberVertInDwg.Location = new System.Drawing.Point(6, 19);
             this.btNumberVertInDwg.Name = "btNumberVertInDwg";
-            this.btNumberVertInDwg.Size = new System.Drawing.Size(147, 34);
+            this.btNumberVertInDwg.Size = new System.Drawing.Size(202, 34);
             this.btNumberVertInDwg.TabIndex = 5;
             this.btNumberVertInDwg.Text = "Нумеровать вершины в чертеже";
             this.btNumberVertInDwg.UseVisualStyleBackColor = true;
@@ -321,7 +326,7 @@
             // lbTextHeight
             // 
             this.lbTextHeight.AutoSize = true;
-            this.lbTextHeight.Location = new System.Drawing.Point(201, 14);
+            this.lbTextHeight.Location = new System.Drawing.Point(253, 16);
             this.lbTextHeight.Name = "lbTextHeight";
             this.lbTextHeight.Size = new System.Drawing.Size(82, 13);
             this.lbTextHeight.TabIndex = 7;
@@ -330,16 +335,16 @@
             // tbTextHeight
             // 
             this.tbTextHeight.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
-            this.tbTextHeight.Location = new System.Drawing.Point(204, 35);
+            this.tbTextHeight.Location = new System.Drawing.Point(248, 33);
             this.tbTextHeight.Name = "tbTextHeight";
-            this.tbTextHeight.Size = new System.Drawing.Size(100, 20);
+            this.tbTextHeight.Size = new System.Drawing.Size(94, 20);
             this.tbTextHeight.TabIndex = 6;
             this.tbTextHeight.Text = "250";
             this.tbTextHeight.TextChanged += new System.EventHandler(this.textHeight_TextChanged);
             // 
             // revers
             // 
-            this.revers.Location = new System.Drawing.Point(15, 299);
+            this.revers.Location = new System.Drawing.Point(3, 482);
             this.revers.Name = "revers";
             this.revers.Size = new System.Drawing.Size(75, 25);
             this.revers.TabIndex = 0;
@@ -350,7 +355,7 @@
             // lbLinkMoney
             // 
             this.lbLinkMoney.AutoSize = true;
-            this.lbLinkMoney.Location = new System.Drawing.Point(286, 597);
+            this.lbLinkMoney.Location = new System.Drawing.Point(281, 579);
             this.lbLinkMoney.Name = "lbLinkMoney";
             this.lbLinkMoney.Size = new System.Drawing.Size(83, 13);
             this.lbLinkMoney.TabIndex = 2;
@@ -361,18 +366,38 @@
             // lbPleaseGiveMoney
             // 
             this.lbPleaseGiveMoney.AutoSize = true;
-            this.lbPleaseGiveMoney.Location = new System.Drawing.Point(31, 584);
+            this.lbPleaseGiveMoney.Location = new System.Drawing.Point(22, 573);
             this.lbPleaseGiveMoney.Name = "lbPleaseGiveMoney";
             this.lbPleaseGiveMoney.Size = new System.Drawing.Size(225, 26);
             this.lbPleaseGiveMoney.TabIndex = 3;
             this.lbPleaseGiveMoney.Text = "Прогресc в разработке двигают печеньки,\r\nсказать спасибо/на печеньки        -----" +
     "---->>";
             // 
+            // cbStartNumerateAbout
+            // 
+            this.cbStartNumerateAbout.AutoSize = true;
+            this.cbStartNumerateAbout.Location = new System.Drawing.Point(6, 70);
+            this.cbStartNumerateAbout.Name = "cbStartNumerateAbout";
+            this.cbStartNumerateAbout.Size = new System.Drawing.Size(236, 17);
+            this.cbStartNumerateAbout.TabIndex = 9;
+            this.cbStartNumerateAbout.Text = "Нумерация не с первой позиции,а с поз.:";
+            this.cbStartNumerateAbout.UseVisualStyleBackColor = true;
+            this.cbStartNumerateAbout.CheckedChanged += new System.EventHandler(this.cbStartNumerateAbout_CheckedChanged);
+            // 
+            // tbStartNumerateNumber
+            // 
+            this.tbStartNumerateNumber.Location = new System.Drawing.Point(248, 68);
+            this.tbStartNumerateNumber.Name = "tbStartNumerateNumber";
+            this.tbStartNumerateNumber.ReadOnly = true;
+            this.tbStartNumerateNumber.Size = new System.Drawing.Size(94, 20);
+            this.tbStartNumerateNumber.TabIndex = 10;
+            this.tbStartNumerateNumber.TextChanged += new System.EventHandler(this.tbStartNumerateNumber_TextChanged);
+            // 
             // GlobalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 619);
+            this.ClientSize = new System.Drawing.Size(393, 608);
             this.Controls.Add(this.lbPleaseGiveMoney);
             this.Controls.Add(this.lbLinkMoney);
             this.Controls.Add(this.pnlOnePnl);
@@ -381,7 +406,7 @@
             this.MaximizeBox = false;
             this.Name = "GlobalForm";
             this.ShowIcon = false;
-            this.Text = "PLL APP by Ivanco_v0.2  (soldatov@infoind.info)";
+            this.Text = "PLL APP by Ivanco_v0.3  (soldatov@infoind.info)";
             this.pnlOnePnl.ResumeLayout(false);
             this.pnlOnePnl.PerformLayout();
             this.gbGeomtoVertexPl.ResumeLayout(false);
@@ -430,5 +455,7 @@
         private System.Windows.Forms.Button btnGetObj;
         private System.Windows.Forms.LinkLabel lbLinkMoney;
         private System.Windows.Forms.Label lbPleaseGiveMoney;
+        private System.Windows.Forms.TextBox tbStartNumerateNumber;
+        private System.Windows.Forms.CheckBox cbStartNumerateAbout;
     }
 }

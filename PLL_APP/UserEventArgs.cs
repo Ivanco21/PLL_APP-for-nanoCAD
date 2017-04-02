@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 
 using Multicad.DatabaseServices.StandardObjects;
+using Multicad.DatabaseServices;
+
 
 
 namespace PLL_APP
@@ -25,15 +27,13 @@ namespace PLL_APP
   }
   class UserEventArgsOneObjProp : EventArgs
   {
-      public readonly DbGeometry ObjFromUser;
-      public readonly McBlockRef BlockUserSelect;
+      public readonly  dynamic ObjFromUser;
       public readonly bool CorrectlyGet;
 
-      public UserEventArgsOneObjProp(DbGeometry objFromUser,McBlockRef blockUserSelect, bool correctlyGet)
+      public UserEventArgsOneObjProp(dynamic objFromUser, bool correctlyGet)
       {
           ObjFromUser = objFromUser;
           CorrectlyGet = correctlyGet;
-          BlockUserSelect = blockUserSelect;
       }
 
   }

@@ -70,6 +70,7 @@
       <HintPath>C:\Users\Иван\Desktop\NCadSDK80_3615.2219.3467\include-Win32\mapimgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />

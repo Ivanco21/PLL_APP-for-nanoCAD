@@ -25,12 +25,12 @@ namespace PLL_APP
             InitializeComponent();
         }
         HandlerPolyline onePl;
-        DbGeometry geomUserSelect;
-        McBlockRef blockUserSelect;
+        dynamic geomUserSelect;
+
         public double inputUserTextHeight = 250;// также 250 записано здесь  this.textHeight.Text, что вероятно неправильно(дублирование).      
         public double MaxLenghtSegPl = 50;
         public bool delSoursePl = false;
-   
+        public double inputUserStartNumber = 1;  
       
         private void GetPL_Click(object sender, EventArgs e)
         {
@@ -83,7 +83,17 @@ namespace PLL_APP
 
         private void numberInDwg_Click(object sender, EventArgs e)
         {
-            onePl.numberInDwg(Convert.ToInt32(inputUserTextHeight));            
+            //если пользователь не ввел стартовое значение нумерации то оно =1, если же ввел передаем его из формы 
+            if (cbStartNumerateAbout.Checked == false)
+            {
+               onePl.numberInDwg(Convert.ToInt32(inputUserTextHeight),1);  
+          
+            }
+            else
+            {
+                onePl.numberInDwg(Convert.ToInt32(inputUserTextHeight),Convert.ToInt32(inputUserStartNumber));  
+            }
+                    
         }
      
         private void textHeight_TextChanged(object sender, EventArgs e)
@@ -109,6 +119,49 @@ namespace PLL_APP
                   btNumberVertInDwg.Enabled = true;
               }
         }
+        private void cbStartNumerateAbout_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbStartNumerateAbout.Checked == true)
+            {
+                tbStartNumerateNumber.ReadOnly = false;
+                tbStartNumerateNumber.Text = "";
+                btNumberVertInDwg.Enabled = true;
+            }
+            else
+            {             
+                tbStartNumerateNumber.ReadOnly = true;
+                tbStartNumerateNumber.Text = "";
+                btNumberVertInDwg.Enabled = true;
+            }
+           
+
+        }
+        private void tbStartNumerateNumber_TextChanged(object sender, EventArgs e)
+        {
+            if (cbStartNumerateAbout.Checked == true)
+            {
+                //проверка что вводится число!
+                string inputStartNum = tbStartNumerateNumber.Text;
+                string decimal_sep = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
+                inputStartNum = tbStartNumerateNumber.Text.Replace(".", decimal_sep);// явная замена на точку (NumberDecimalSeparator - точка по умолчанию) возможно можно лучше сделать
+                inputStartNum = tbStartNumerateNumber.Text.Replace(",", decimal_sep);
+
+                bool res = double.TryParse(inputStartNum, out inputUserStartNumber);
+
+                if (res == false)
+                {
+                    tbStartNumerateNumber.Text = "Введите число!";
+                    tbStartNumerateNumber.ForeColor = Color.Red;
+                    btNumberVertInDwg.Enabled = false;
+                }
+                else
+                {
+                    inputUserStartNumber = Convert.ToInt32(tbStartNumerateNumber.Text);
+                    tbStartNumerateNumber.ForeColor = Color.Black;
+                    btNumberVertInDwg.Enabled = true;
+                }
+            }         
+        }                  
 
         private void revers_Click(object sender, EventArgs e)
         {
@@ -190,35 +243,20 @@ namespace PLL_APP
                 return;
             }
 
-            // какой тип объекта получили 
-            if(e.BlockUserSelect != null)
-            {
-                blockUserSelect = e.BlockUserSelect; 
-            }
-            else
-            {
-                geomUserSelect = e.ObjFromUser;
-            }
+                geomUserSelect = e.ObjFromUser;      
         }
 
         private void btnPlaceGeom_Click(object sender, EventArgs e)
         {
-            // какой тип объекта расставляем
-            if (geomUserSelect != null)
-            {
-                ObjPlaced place = new ObjPlaced (ref geomUserSelect, ref onePl);
-                place.geometryPlaceToPlVertex();
-            }
-            else
-            {
-              
-            }
-
+            ObjPlaced place = new ObjPlaced(geomUserSelect, onePl);
+            place.geometryPlaceToPlVertex();
         }
 
         private void linkMoney_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://money.yandex.ru/to/41001456523527");
-        }                  
+        }
+
+       
     }
  }

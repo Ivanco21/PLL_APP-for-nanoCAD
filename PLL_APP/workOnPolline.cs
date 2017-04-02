@@ -53,22 +53,23 @@ namespace PLL_APP
             plForWrite.DbEntity.AddToCurrentDocument();                        
         }
 
-        public void numberInDwg(int inputUserTextHeight) 
+        public void numberInDwg(int inputUserTextHeight, int startNumber) 
         {
+            int vertStartNum = startNumber;
             List<Point3d> Vert = new List<Point3d>();
             Vert = this.listVertecs(plineGetFromUser);
 
             Vector3d forTextVector = new Vector3d(100, 0, 0);
             double hTx = inputUserTextHeight; // получаем от пользователя
-            // экземпляр класса создается т.к. TextGeom не поддерживает AddToCurrentDocument()
             DbText forDraw = new DbText();
 
             for (int i = 0; i < Vert.Count; i++)
             {
-                TextGeom textNumberPoint = new TextGeom(Convert.ToString(i + 1), Vert[i], forTextVector, "");
+                TextGeom textNumberPoint = new TextGeom(Convert.ToString(i + startNumber), Vert[i], forTextVector, "");
                 textNumberPoint.Height = hTx;
                 forDraw = textNumberPoint;
                 forDraw.DbEntity.AddToCurrentDocument();
+                vertStartNum = vertStartNum + 1;
             }
 
 

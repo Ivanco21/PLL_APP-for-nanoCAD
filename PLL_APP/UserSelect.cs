@@ -59,8 +59,7 @@ namespace PLL_APP
      }
     class OneObjSelector
     {
-        DbGeometry fromUserSelect;
-        McBlockRef blockUserSelect;
+        dynamic fromUserSelect;     
         bool correctlyGet;
 
         public OneObjSelector()
@@ -73,7 +72,7 @@ namespace PLL_APP
         public void DoEventSendDataOneObjInForm()
         {
             if (sendDataOneObjInForm != null)
-                sendDataOneObjInForm(this, new UserEventArgsOneObjProp(fromUserSelect, blockUserSelect, correctlyGet));
+                sendDataOneObjInForm(this, new UserEventArgsOneObjProp(fromUserSelect,correctlyGet));
         }
 
 
@@ -85,16 +84,11 @@ namespace PLL_APP
                 Multicad.McObjectId idSelected = McObjectManager.SelectObject("Выберите объект для расстановки");
                 Multicad.McObject targetObj = idSelected.GetObject();
 
-                if (targetObj is DbGeometry)
+                if (targetObj is DbGeometry || targetObj is McBlockRef || targetObj is DbText)
                 {
-                    this.fromUserSelect = targetObj as DbGeometry;
+                    this.fromUserSelect = targetObj ;
                     this.correctlyGet = true;
-                }
-                else if(targetObj is McBlockRef)
-                {
-                    this.blockUserSelect = targetObj as McBlockRef;
-                    this.correctlyGet = true;                   
-                }
+                }               
                 else
                 {
                     this.correctlyGet = false;
