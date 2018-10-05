@@ -117,4 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="tbHelpMe.Text" xml:space="preserve">
+    <value>Прогресc в разработке  программы двигают:
+
+1. Ваши пожелания к функционалу. 
+    Их нужно писать на: soldatov@infoind.info
+
+2. Печеньки которые любит автор.
+    Сказать спасибо/на печеньки:      
+     ЯндексДеньги - &gt;&gt;   41001456523527   &lt;&lt;
+     Ethereum (ETH)  - &gt;&gt;   
+0x8975636480bDaF9EEEe28151aAb5bBea359634F6
+
+</value>
+  </data>
 </root>

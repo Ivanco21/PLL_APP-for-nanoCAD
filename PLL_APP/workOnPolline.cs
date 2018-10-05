@@ -154,11 +154,141 @@ namespace PLL_APP
             return TablePoint;
        }
 
-        public void vertexInTableOutDwg(string accuracyPoint)
+        public McTable vertexInTableKadastrForm(DbPolyline plineGetFromUser, string accuracyPoint)
         {
-            // создаем таблицу на чертеже
-            McTable TablePoint = vertexInTable(plineGetFromUser,accuracyPoint);
-            TablePoint.PlaceObject(McEntity.PlaceFlags.Silent);
+
+            List<Point3d> Vert = new List<Point3d>();
+            Vert = this.listVertecs(plineGetFromUser);
+
+            // создаем таблицу  //rows - строки , colums - столбцы
+            McTable TablePoint = new McTable();
+            int rowCount = Vert.Count;
+            int allRowCount = rowCount + 4;// add header
+            int colCount = 3;
+            TablePoint.Rows.AddRange(0, allRowCount);
+            TablePoint.Columns.AddRange(0, colCount);
+
+            // Header merge
+            System.Drawing.Rectangle rectHeader = new System.Drawing.Rectangle(0, 0, colCount - 1, 0);
+            TablePoint.Merge(rectHeader);
+            // second header 
+            System.Drawing.Rectangle rectSecondHeader = new System.Drawing.Rectangle(0, 1, colCount - 1, 0);
+            TablePoint.Merge(rectSecondHeader);
+            // first rect
+            System.Drawing.Rectangle rectFirst = new System.Drawing.Rectangle(0, 2, colCount - 3, 1);
+            TablePoint.Merge(rectFirst);
+            // second rect - не работает
+            System.Drawing.Rectangle rectSecond = new System.Drawing.Rectangle(1, 2, colCount - 2, 0);
+            TablePoint.Merge(rectSecond);
+
+            // ширина столбцов
+            TablePoint.Columns[0].Width = 25;
+            TablePoint.Columns[1].Width = 30;
+            TablePoint.Columns[2].Width = 30;
+            // ширина строк
+            for (int k = 0; k < allRowCount; k++)
+            {
+                TablePoint.Rows[k].Height = 5; 
+            }
+            
+            // настройки таблицы по умолчанию
+            TablePoint.DefaultCell.TextHeight = 2.5;
+            TablePoint.DefaultCell.TextColor = System.Drawing.Color.Black;
+            TablePoint.DefaultCell.VerticalTextAlign = VertTextAlign.Center;
+            TablePoint.DefaultCell.HorizontalTextAlign = HorizTextAlign.Center;
+
+            // Статичные поля таблицы 
+            TablePoint[0, 0].HorizontalTextAlign = HorizTextAlign.Left;
+            TablePoint[0, 0].VerticalTextAlign = VertTextAlign.Center;
+            TablePoint[0, 0].Value = "Условный номер земельного участка";
+
+            TablePoint[1, 0].HorizontalTextAlign = HorizTextAlign.Left;
+            TablePoint[1, 0].VerticalTextAlign = VertTextAlign.Center;
+            TablePoint[1, 0].Value = "Площадь земельного участка        м2";
+
+            TablePoint[2, 0].HorizontalTextAlign = HorizTextAlign.Left;
+            TablePoint[2, 0].VerticalTextAlign = VertTextAlign.Top;
+            TablePoint[2, 0].Value = "Обозначение характерных точек границ";
+
+            TablePoint[2, 1].HorizontalTextAlign = HorizTextAlign.Center;
+            TablePoint[2, 1].VerticalTextAlign = VertTextAlign.Center;
+            TablePoint[2, 1].Value = "Координаты,м";
+
+            TablePoint[3, 1].HorizontalTextAlign = HorizTextAlign.Center;
+            TablePoint[3, 1].VerticalTextAlign = VertTextAlign.Center;
+            TablePoint[3, 1].Value = "X";
+
+            TablePoint[3, 2].HorizontalTextAlign = HorizTextAlign.Center;
+            TablePoint[3, 2].VerticalTextAlign = VertTextAlign.Center;
+            TablePoint[3, 2].Value = "Y";
+
+            // учитываем  систему координат
+            McDocument doc = McDocument.WorkingDocument;
+            Matrix3d matCurrent = doc.UCS;
+            Matrix3d matUsc = matCurrent.Inverse(); 
+
+            //номера точек в ячейки и  координата X,Y,Z
+            for (int i = 0; i < Vert.Count; i++)
+            {
+                Point3d onePointAtList = new Point3d();
+                onePointAtList = Vert[i];
+                onePointAtList = onePointAtList.TransformBy(matUsc);// преобразуем в текущую систему координат
+                int j = i + 4;
+                // точность представления чисел в ячейках - получается из формы от пользователя 
+                switch (accuracyPoint)
+                {
+                    case "0":
+                        TablePoint[j, 1].Precision = CellPrecisionEnum.Integer;
+                        TablePoint[j, 2].Precision = CellPrecisionEnum.Integer;
+                        break;
+
+                    case "0.0":
+                        TablePoint[j, 1].Precision = CellPrecisionEnum.Precision1;
+                        TablePoint[j, 2].Precision = CellPrecisionEnum.Precision1;
+                        break;
+
+                    case "0.00":
+                        TablePoint[j, 1].Precision = CellPrecisionEnum.Precision2;
+                        TablePoint[j, 2].Precision = CellPrecisionEnum.Precision2;
+                        break;
+
+                    case "0.000":
+                        TablePoint[j, 1].Precision = CellPrecisionEnum.Precision3;
+                        TablePoint[j, 2].Precision = CellPrecisionEnum.Precision3;
+                        break;
+                }
+
+                //номера точек в ячейки и  координата X,Y
+                TablePoint[j, 0].Type = CellFormatEnum.Number;
+                int pointNumber = j - 3;
+                TablePoint[j, 0].Value = pointNumber.ToString();
+
+                TablePoint[j, 1].Type = CellFormatEnum.Number;
+                TablePoint[j, 1].Value = onePointAtList.X.ToString();
+
+                TablePoint[j, 2].Type = CellFormatEnum.Number;
+                TablePoint[j, 2].Value = onePointAtList.Y.ToString();
+
+            }
+            return TablePoint;
+        }
+
+        public void vertexInTableOutDwg(string accuracyPoint, bool isKadastrForm)
+        {
+            // таблица по кадастровой форме или простая 
+            if (isKadastrForm == true)
+            {
+                // создаем таблицу на чертеже
+                McTable TablePoint = vertexInTableKadastrForm(plineGetFromUser, accuracyPoint);
+                TablePoint.PlaceObject(McEntity.PlaceFlags.Silent);
+            }
+            else
+            {
+                // создаем таблицу на чертеже
+                McTable TablePoint = vertexInTable(plineGetFromUser, accuracyPoint);
+                TablePoint.PlaceObject(McEntity.PlaceFlags.Silent);
+            }
+
 
         }
 

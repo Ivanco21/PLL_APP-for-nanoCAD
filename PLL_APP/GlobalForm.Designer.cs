@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlobalForm));
             this.btGetPL = new System.Windows.Forms.Button();
             this.pnlOnePnl = new System.Windows.Forms.Panel();
             this.gbGeomtoVertexPl = new System.Windows.Forms.GroupBox();
@@ -46,30 +47,39 @@
             this.DelDuplicateVertexPl = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.vertInTable = new System.Windows.Forms.GroupBox();
+            this.cbKadasdrTableForm = new System.Windows.Forms.CheckBox();
             this.vertexInTable = new System.Windows.Forms.Button();
             this.cbAccuracyPoint = new System.Windows.Forms.ComboBox();
             this.btExportInCsv = new System.Windows.Forms.Button();
             this.lbAccuracyPoint = new System.Windows.Forms.Label();
             this.numVertex = new System.Windows.Forms.GroupBox();
+            this.tbStartNumerateNumber = new System.Windows.Forms.TextBox();
+            this.cbStartNumerateAbout = new System.Windows.Forms.CheckBox();
             this.btNumberVertInDwg = new System.Windows.Forms.Button();
             this.lbTextHeight = new System.Windows.Forms.Label();
             this.tbTextHeight = new System.Windows.Forms.TextBox();
             this.revers = new System.Windows.Forms.Button();
-            this.lbLinkMoney = new System.Windows.Forms.LinkLabel();
-            this.lbPleaseGiveMoney = new System.Windows.Forms.Label();
-            this.cbStartNumerateAbout = new System.Windows.Forms.CheckBox();
-            this.tbStartNumerateNumber = new System.Windows.Forms.TextBox();
+            this.tbConrlMain = new System.Windows.Forms.TabControl();
+            this.tbPgMain = new System.Windows.Forms.TabPage();
+            this.tbAbout = new System.Windows.Forms.TabPage();
+            this.tbHelpMe = new System.Windows.Forms.TextBox();
+            this.tbForum = new System.Windows.Forms.TextBox();
+            this.tbSource = new System.Windows.Forms.TextBox();
+            this.tbAboutProgram = new System.Windows.Forms.TextBox();
             this.pnlOnePnl.SuspendLayout();
             this.gbGeomtoVertexPl.SuspendLayout();
             this.gbRenumerateVertexPl.SuspendLayout();
             this.gbRedusePl.SuspendLayout();
             this.vertInTable.SuspendLayout();
             this.numVertex.SuspendLayout();
+            this.tbConrlMain.SuspendLayout();
+            this.tbPgMain.SuspendLayout();
+            this.tbAbout.SuspendLayout();
             this.SuspendLayout();
             // 
             // btGetPL
             // 
-            this.btGetPL.Location = new System.Drawing.Point(67, 12);
+            this.btGetPL.Location = new System.Drawing.Point(46, 6);
             this.btGetPL.Name = "btGetPL";
             this.btGetPL.Size = new System.Drawing.Size(268, 23);
             this.btGetPL.TabIndex = 0;
@@ -89,7 +99,7 @@
             this.pnlOnePnl.Controls.Add(this.numVertex);
             this.pnlOnePnl.Controls.Add(this.revers);
             this.pnlOnePnl.Enabled = false;
-            this.pnlOnePnl.Location = new System.Drawing.Point(12, 41);
+            this.pnlOnePnl.Location = new System.Drawing.Point(6, 33);
             this.pnlOnePnl.Name = "pnlOnePnl";
             this.pnlOnePnl.Size = new System.Drawing.Size(368, 522);
             this.pnlOnePnl.TabIndex = 1;
@@ -127,7 +137,7 @@
             // 
             // btnGetObj
             // 
-            this.btnGetObj.Location = new System.Drawing.Point(9, 45);
+            this.btnGetObj.Location = new System.Drawing.Point(6, 45);
             this.btnGetObj.Name = "btnGetObj";
             this.btnGetObj.Size = new System.Drawing.Size(147, 27);
             this.btnGetObj.TabIndex = 0;
@@ -158,7 +168,7 @@
             // 
             // btnRenumVertexInPl
             // 
-            this.btnRenumVertexInPl.Location = new System.Drawing.Point(6, 55);
+            this.btnRenumVertexInPl.Location = new System.Drawing.Point(0, 61);
             this.btnRenumVertexInPl.Name = "btnRenumVertexInPl";
             this.btnRenumVertexInPl.Size = new System.Drawing.Size(202, 35);
             this.btnRenumVertexInPl.TabIndex = 1;
@@ -238,7 +248,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(0, 455);
+            this.label1.Location = new System.Drawing.Point(-1, 455);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(364, 13);
             this.label1.TabIndex = 10;
@@ -246,6 +256,7 @@
             // 
             // vertInTable
             // 
+            this.vertInTable.Controls.Add(this.cbKadasdrTableForm);
             this.vertInTable.Controls.Add(this.vertexInTable);
             this.vertInTable.Controls.Add(this.cbAccuracyPoint);
             this.vertInTable.Controls.Add(this.btExportInCsv);
@@ -256,9 +267,19 @@
             this.vertInTable.TabIndex = 9;
             this.vertInTable.TabStop = false;
             // 
+            // cbKadasdrTableForm
+            // 
+            this.cbKadasdrTableForm.AutoSize = true;
+            this.cbKadasdrTableForm.Location = new System.Drawing.Point(204, 59);
+            this.cbKadasdrTableForm.Name = "cbKadasdrTableForm";
+            this.cbKadasdrTableForm.Size = new System.Drawing.Size(132, 17);
+            this.cbKadasdrTableForm.TabIndex = 5;
+            this.cbKadasdrTableForm.Text = "Кадастровая форма ";
+            this.cbKadasdrTableForm.UseVisualStyleBackColor = true;
+            // 
             // vertexInTable
             // 
-            this.vertexInTable.Location = new System.Drawing.Point(6, 13);
+            this.vertexInTable.Location = new System.Drawing.Point(0, 13);
             this.vertexInTable.Name = "vertexInTable";
             this.vertexInTable.Size = new System.Drawing.Size(147, 35);
             this.vertexInTable.TabIndex = 1;
@@ -283,7 +304,7 @@
             // 
             // btExportInCsv
             // 
-            this.btExportInCsv.Location = new System.Drawing.Point(6, 54);
+            this.btExportInCsv.Location = new System.Drawing.Point(0, 54);
             this.btExportInCsv.Name = "btExportInCsv";
             this.btExportInCsv.Size = new System.Drawing.Size(147, 25);
             this.btExportInCsv.TabIndex = 4;
@@ -313,9 +334,29 @@
             this.numVertex.TabIndex = 8;
             this.numVertex.TabStop = false;
             // 
+            // tbStartNumerateNumber
+            // 
+            this.tbStartNumerateNumber.Location = new System.Drawing.Point(248, 68);
+            this.tbStartNumerateNumber.Name = "tbStartNumerateNumber";
+            this.tbStartNumerateNumber.ReadOnly = true;
+            this.tbStartNumerateNumber.Size = new System.Drawing.Size(94, 20);
+            this.tbStartNumerateNumber.TabIndex = 10;
+            this.tbStartNumerateNumber.TextChanged += new System.EventHandler(this.tbStartNumerateNumber_TextChanged);
+            // 
+            // cbStartNumerateAbout
+            // 
+            this.cbStartNumerateAbout.AutoSize = true;
+            this.cbStartNumerateAbout.Location = new System.Drawing.Point(6, 70);
+            this.cbStartNumerateAbout.Name = "cbStartNumerateAbout";
+            this.cbStartNumerateAbout.Size = new System.Drawing.Size(236, 17);
+            this.cbStartNumerateAbout.TabIndex = 9;
+            this.cbStartNumerateAbout.Text = "Нумерация не с первой позиции,а с поз.:";
+            this.cbStartNumerateAbout.UseVisualStyleBackColor = true;
+            this.cbStartNumerateAbout.CheckedChanged += new System.EventHandler(this.cbStartNumerateAbout_CheckedChanged);
+            // 
             // btNumberVertInDwg
             // 
-            this.btNumberVertInDwg.Location = new System.Drawing.Point(6, 19);
+            this.btNumberVertInDwg.Location = new System.Drawing.Point(0, 19);
             this.btNumberVertInDwg.Name = "btNumberVertInDwg";
             this.btNumberVertInDwg.Size = new System.Drawing.Size(202, 34);
             this.btNumberVertInDwg.TabIndex = 5;
@@ -344,7 +385,7 @@
             // 
             // revers
             // 
-            this.revers.Location = new System.Drawing.Point(3, 482);
+            this.revers.Location = new System.Drawing.Point(12, 482);
             this.revers.Name = "revers";
             this.revers.Size = new System.Drawing.Size(75, 25);
             this.revers.TabIndex = 0;
@@ -352,61 +393,103 @@
             this.revers.UseVisualStyleBackColor = true;
             this.revers.Click += new System.EventHandler(this.revers_Click);
             // 
-            // lbLinkMoney
+            // tbConrlMain
             // 
-            this.lbLinkMoney.AutoSize = true;
-            this.lbLinkMoney.Location = new System.Drawing.Point(281, 579);
-            this.lbLinkMoney.Name = "lbLinkMoney";
-            this.lbLinkMoney.Size = new System.Drawing.Size(83, 13);
-            this.lbLinkMoney.TabIndex = 2;
-            this.lbLinkMoney.TabStop = true;
-            this.lbLinkMoney.Text = "ЯндексДеньги";
-            this.lbLinkMoney.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkMoney_LinkClicked);
+            this.tbConrlMain.Controls.Add(this.tbPgMain);
+            this.tbConrlMain.Controls.Add(this.tbAbout);
+            this.tbConrlMain.Location = new System.Drawing.Point(12, 12);
+            this.tbConrlMain.Name = "tbConrlMain";
+            this.tbConrlMain.SelectedIndex = 0;
+            this.tbConrlMain.Size = new System.Drawing.Size(390, 587);
+            this.tbConrlMain.TabIndex = 4;
             // 
-            // lbPleaseGiveMoney
+            // tbPgMain
             // 
-            this.lbPleaseGiveMoney.AutoSize = true;
-            this.lbPleaseGiveMoney.Location = new System.Drawing.Point(22, 573);
-            this.lbPleaseGiveMoney.Name = "lbPleaseGiveMoney";
-            this.lbPleaseGiveMoney.Size = new System.Drawing.Size(225, 26);
-            this.lbPleaseGiveMoney.TabIndex = 3;
-            this.lbPleaseGiveMoney.Text = "Прогресc в разработке двигают печеньки,\r\nсказать спасибо/на печеньки        -----" +
-    "---->>";
+            this.tbPgMain.Controls.Add(this.btGetPL);
+            this.tbPgMain.Controls.Add(this.pnlOnePnl);
+            this.tbPgMain.Location = new System.Drawing.Point(4, 22);
+            this.tbPgMain.Name = "tbPgMain";
+            this.tbPgMain.Padding = new System.Windows.Forms.Padding(3);
+            this.tbPgMain.Size = new System.Drawing.Size(382, 561);
+            this.tbPgMain.TabIndex = 0;
+            this.tbPgMain.Text = "Main";
+            this.tbPgMain.UseVisualStyleBackColor = true;
             // 
-            // cbStartNumerateAbout
+            // tbAbout
             // 
-            this.cbStartNumerateAbout.AutoSize = true;
-            this.cbStartNumerateAbout.Location = new System.Drawing.Point(6, 70);
-            this.cbStartNumerateAbout.Name = "cbStartNumerateAbout";
-            this.cbStartNumerateAbout.Size = new System.Drawing.Size(236, 17);
-            this.cbStartNumerateAbout.TabIndex = 9;
-            this.cbStartNumerateAbout.Text = "Нумерация не с первой позиции,а с поз.:";
-            this.cbStartNumerateAbout.UseVisualStyleBackColor = true;
-            this.cbStartNumerateAbout.CheckedChanged += new System.EventHandler(this.cbStartNumerateAbout_CheckedChanged);
+            this.tbAbout.Controls.Add(this.tbAboutProgram);
+            this.tbAbout.Controls.Add(this.tbSource);
+            this.tbAbout.Controls.Add(this.tbForum);
+            this.tbAbout.Controls.Add(this.tbHelpMe);
+            this.tbAbout.Location = new System.Drawing.Point(4, 22);
+            this.tbAbout.Name = "tbAbout";
+            this.tbAbout.Size = new System.Drawing.Size(382, 561);
+            this.tbAbout.TabIndex = 1;
+            this.tbAbout.Text = "О программе/сказать спасибо";
+            this.tbAbout.UseVisualStyleBackColor = true;
             // 
-            // tbStartNumerateNumber
+            // tbHelpMe
             // 
-            this.tbStartNumerateNumber.Location = new System.Drawing.Point(248, 68);
-            this.tbStartNumerateNumber.Name = "tbStartNumerateNumber";
-            this.tbStartNumerateNumber.ReadOnly = true;
-            this.tbStartNumerateNumber.Size = new System.Drawing.Size(94, 20);
-            this.tbStartNumerateNumber.TabIndex = 10;
-            this.tbStartNumerateNumber.TextChanged += new System.EventHandler(this.tbStartNumerateNumber_TextChanged);
+            this.tbHelpMe.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbHelpMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbHelpMe.Location = new System.Drawing.Point(7, 123);
+            this.tbHelpMe.Multiline = true;
+            this.tbHelpMe.Name = "tbHelpMe";
+            this.tbHelpMe.ReadOnly = true;
+            this.tbHelpMe.Size = new System.Drawing.Size(360, 196);
+            this.tbHelpMe.TabIndex = 7;
+            this.tbHelpMe.Text = resources.GetString("tbHelpMe.Text");
+            // 
+            // tbForum
+            // 
+            this.tbForum.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbForum.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbForum.Location = new System.Drawing.Point(7, 357);
+            this.tbForum.Multiline = true;
+            this.tbForum.Name = "tbForum";
+            this.tbForum.ReadOnly = true;
+            this.tbForum.Size = new System.Drawing.Size(342, 79);
+            this.tbForum.TabIndex = 8;
+            this.tbForum.Text = "Обсуждение скрипта ведется на формуме: \r\n \r\nhttp://forum.nanocad.ru/index.php?sho" +
+    "wtopic=7021&st=0\r\n";
+            // 
+            // tbSource
+            // 
+            this.tbSource.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbSource.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbSource.Location = new System.Drawing.Point(7, 451);
+            this.tbSource.Multiline = true;
+            this.tbSource.Name = "tbSource";
+            this.tbSource.ReadOnly = true;
+            this.tbSource.Size = new System.Drawing.Size(372, 73);
+            this.tbSource.TabIndex = 9;
+            this.tbSource.Text = "Исходный код проекта открыт и находится на GITHUB - \r\n\r\nhttps://github.com/Ivanco" +
+    "21/PLL_APP_for_nanoCAD_AutoCAD";
+            // 
+            // tbAboutProgram
+            // 
+            this.tbAboutProgram.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbAboutProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbAboutProgram.Location = new System.Drawing.Point(25, 31);
+            this.tbAboutProgram.Multiline = true;
+            this.tbAboutProgram.Name = "tbAboutProgram";
+            this.tbAboutProgram.ReadOnly = true;
+            this.tbAboutProgram.Size = new System.Drawing.Size(315, 47);
+            this.tbAboutProgram.TabIndex = 10;
+            this.tbAboutProgram.Text = "Набор дополнительных инструментов для работы с полилинией";
+            this.tbAboutProgram.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // GlobalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(393, 608);
-            this.Controls.Add(this.lbPleaseGiveMoney);
-            this.Controls.Add(this.lbLinkMoney);
-            this.Controls.Add(this.pnlOnePnl);
-            this.Controls.Add(this.btGetPL);
+            this.ClientSize = new System.Drawing.Size(411, 608);
+            this.Controls.Add(this.tbConrlMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "GlobalForm";
             this.ShowIcon = false;
-            this.Text = "PLL APP by Ivanco_v0.3  (soldatov@infoind.info)";
+            this.Text = "PLL APP by Ivanco_v0.4 (soldatov@infoind.info)";
             this.pnlOnePnl.ResumeLayout(false);
             this.pnlOnePnl.PerformLayout();
             this.gbGeomtoVertexPl.ResumeLayout(false);
@@ -419,8 +502,11 @@
             this.vertInTable.PerformLayout();
             this.numVertex.ResumeLayout(false);
             this.numVertex.PerformLayout();
+            this.tbConrlMain.ResumeLayout(false);
+            this.tbPgMain.ResumeLayout(false);
+            this.tbAbout.ResumeLayout(false);
+            this.tbAbout.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -453,9 +539,15 @@
         private System.Windows.Forms.Button btnPlaceGeom;
         private System.Windows.Forms.Label lbGeomToPlVert;
         private System.Windows.Forms.Button btnGetObj;
-        private System.Windows.Forms.LinkLabel lbLinkMoney;
-        private System.Windows.Forms.Label lbPleaseGiveMoney;
         private System.Windows.Forms.TextBox tbStartNumerateNumber;
         private System.Windows.Forms.CheckBox cbStartNumerateAbout;
+        private System.Windows.Forms.TabControl tbConrlMain;
+        private System.Windows.Forms.TabPage tbPgMain;
+        private System.Windows.Forms.CheckBox cbKadasdrTableForm;
+        private System.Windows.Forms.TabPage tbAbout;
+        private System.Windows.Forms.TextBox tbHelpMe;
+        private System.Windows.Forms.TextBox tbSource;
+        private System.Windows.Forms.TextBox tbForum;
+        private System.Windows.Forms.TextBox tbAboutProgram;
     }
 }

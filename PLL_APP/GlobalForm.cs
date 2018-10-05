@@ -75,10 +75,10 @@ namespace PLL_APP
             HandlerPolyline onePolyline = new HandlerPolyline(e.PlineGetFromUser);
             onePl = onePolyline;
         }
-
+        
         private void vertexInTable_Click(object sender, EventArgs e)
         {
-            onePl.vertexInTableOutDwg(cbAccuracyPoint.Text);
+            onePl.vertexInTableOutDwg(cbAccuracyPoint.Text, cbKadasdrTableForm.Checked);
         }
 
         private void numberInDwg_Click(object sender, EventArgs e)
