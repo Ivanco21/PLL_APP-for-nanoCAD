@@ -62,10 +62,13 @@ namespace PLL_APP
             Vector3d forTextVector = new Vector3d(100, 0, 0);
             double hTx = inputUserTextHeight; // получаем от пользователя
             DbText forDraw = new DbText();
+            // текущий текстовый стиль
+            //forDraw.Text.TextStyle = McObjectManager.CurrentStyle.CurrentTextStyle;
 
             for (int i = 0; i < Vert.Count; i++)
             {
                 TextGeom textNumberPoint = new TextGeom(Convert.ToString(i + startNumber), Vert[i], forTextVector, "");
+                textNumberPoint.TextStyle = McObjectManager.CurrentStyle.CurrentTextStyle;
                 textNumberPoint.Height = hTx;
                 forDraw = textNumberPoint;
                 forDraw.DbEntity.AddToCurrentDocument();
@@ -91,6 +94,9 @@ namespace PLL_APP
             // настройки таблицы по умолчанию
             TablePoint.DefaultCell.TextHeight = 2.5;
             TablePoint.DefaultCell.TextColor = System.Drawing.Color.Black;
+            // текущий текстовый стиль
+            string txtStyleName = McObjectManager.CurrentStyle.CurrentTextStyle;
+            TablePoint.DefaultCell.TextStyle = txtStyleName;
 
             // наименование_столбцов
             TablePoint[0, 0].Value = "№_Point";
@@ -159,10 +165,24 @@ namespace PLL_APP
 
             List<Point3d> Vert = new List<Point3d>();
             Vert = this.listVertecs(plineGetFromUser);
-
+             
             // создаем таблицу  //rows - строки , colums - столбцы
             McTable TablePoint = new McTable();
             int rowCount = Vert.Count;
+
+            // если замкнутая но вершины не совпадают значит нужно добавить строку т.к. 
+            // Приказ Минэкономразвития от 08.12.2015 № 921 "Об утверждении формы и состава сведений межевого плана, требований к его подготовке":
+            // Список характерных точек границ должен завершаться обозначением начальной точки.
+            bool plIsClose = plineGetFromUser.Polyline.ClosedLogically;
+            bool onePointEqualTwoPoint = (Vert[0].X == Vert[Vert.Count - 1].X) & 
+                                         (Vert[0].Y == Vert[Vert.Count - 1].Y) & 
+                                         (Vert[0].Z == Vert[Vert.Count - 1].Z);
+
+            if(plIsClose & !onePointEqualTwoPoint)
+            {
+                rowCount = rowCount + 1;
+            }
+
             int allRowCount = rowCount + 4;// add header
             int colCount = 3;
             TablePoint.Rows.AddRange(0, allRowCount);
@@ -177,7 +197,7 @@ namespace PLL_APP
             // first rect
             System.Drawing.Rectangle rectFirst = new System.Drawing.Rectangle(0, 2, colCount - 3, 1);
             TablePoint.Merge(rectFirst);
-            // second rect - не работает
+            // second rect 
             System.Drawing.Rectangle rectSecond = new System.Drawing.Rectangle(1, 2, colCount - 2, 0);
             TablePoint.Merge(rectSecond);
 
@@ -190,12 +210,45 @@ namespace PLL_APP
             {
                 TablePoint.Rows[k].Height = 5; 
             }
+
+            // точность представления чисел в ячейках - получается из формы от пользователя 
+            for (int rc = 0; rc < rowCount; rc++)
+            {
+                int jc = rc + 4;
+
+                switch (accuracyPoint)
+                {
+                    case "0":
+                        TablePoint[jc, 1].Precision = CellPrecisionEnum.Integer;
+                        TablePoint[jc, 2].Precision = CellPrecisionEnum.Integer;
+                        break;
+
+                    case "0.0":
+                        TablePoint[jc, 1].Precision = CellPrecisionEnum.Precision1;
+                        TablePoint[jc, 2].Precision = CellPrecisionEnum.Precision1;
+                        break;
+
+                    case "0.00":
+                        TablePoint[jc, 1].Precision = CellPrecisionEnum.Precision2;
+                        TablePoint[jc, 2].Precision = CellPrecisionEnum.Precision2;
+                        break;
+
+                    case "0.000":
+                        TablePoint[jc, 1].Precision = CellPrecisionEnum.Precision3;
+                        TablePoint[jc, 2].Precision = CellPrecisionEnum.Precision3;
+                        break;
+                }
+            }
             
             // настройки таблицы по умолчанию
             TablePoint.DefaultCell.TextHeight = 2.5;
             TablePoint.DefaultCell.TextColor = System.Drawing.Color.Black;
             TablePoint.DefaultCell.VerticalTextAlign = VertTextAlign.Center;
             TablePoint.DefaultCell.HorizontalTextAlign = HorizTextAlign.Center;
+
+            // текущий текстовый стиль
+            string txtStyleName = McObjectManager.CurrentStyle.CurrentTextStyle;
+            TablePoint.DefaultCell.TextStyle = txtStyleName;
 
             // Статичные поля таблицы 
             TablePoint[0, 0].HorizontalTextAlign = HorizTextAlign.Left;
@@ -234,29 +287,6 @@ namespace PLL_APP
                 onePointAtList = Vert[i];
                 onePointAtList = onePointAtList.TransformBy(matUsc);// преобразуем в текущую систему координат
                 int j = i + 4;
-                // точность представления чисел в ячейках - получается из формы от пользователя 
-                switch (accuracyPoint)
-                {
-                    case "0":
-                        TablePoint[j, 1].Precision = CellPrecisionEnum.Integer;
-                        TablePoint[j, 2].Precision = CellPrecisionEnum.Integer;
-                        break;
-
-                    case "0.0":
-                        TablePoint[j, 1].Precision = CellPrecisionEnum.Precision1;
-                        TablePoint[j, 2].Precision = CellPrecisionEnum.Precision1;
-                        break;
-
-                    case "0.00":
-                        TablePoint[j, 1].Precision = CellPrecisionEnum.Precision2;
-                        TablePoint[j, 2].Precision = CellPrecisionEnum.Precision2;
-                        break;
-
-                    case "0.000":
-                        TablePoint[j, 1].Precision = CellPrecisionEnum.Precision3;
-                        TablePoint[j, 2].Precision = CellPrecisionEnum.Precision3;
-                        break;
-                }
 
                 //номера точек в ячейки и  координата X,Y
                 TablePoint[j, 0].Type = CellFormatEnum.Number;
@@ -270,6 +300,20 @@ namespace PLL_APP
                 TablePoint[j, 2].Value = onePointAtList.Y.ToString();
 
             }
+
+            // Список характерных точек границ должен завершаться обозначением начальной точки.
+            if (plIsClose & !onePointEqualTwoPoint)
+            {
+                TablePoint[allRowCount - 1, 0].Type = CellFormatEnum.Number;
+                TablePoint[allRowCount - 1, 0].Value = (Vert.Count + 1).ToString();
+
+                TablePoint[allRowCount - 1, 1].Type = CellFormatEnum.Number;
+                TablePoint[allRowCount - 1, 1].Value = Vert[0].X.ToString();
+
+                TablePoint[allRowCount - 1, 2].Type = CellFormatEnum.Number;
+                TablePoint[allRowCount - 1, 2].Value = Vert[0].Y.ToString();
+            }
+
             return TablePoint;
         }
 
