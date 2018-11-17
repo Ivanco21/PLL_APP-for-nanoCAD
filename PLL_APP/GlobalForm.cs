@@ -78,7 +78,7 @@ namespace PLL_APP
         
         private void vertexInTable_Click(object sender, EventArgs e)
         {
-            onePl.vertexInTableOutDwg(cbAccuracyPoint.Text, cbKadasdrTableForm.Checked);
+            onePl.vertexInTableOutDwg(cbAccuracyPoint.Text, cbKadasdrTableForm.Checked,cbIsUseUCS.Checked,cbIsXYrevers.Checked);
         }
 
         private void numberInDwg_Click(object sender, EventArgs e)
@@ -172,7 +172,7 @@ namespace PLL_APP
 
         private void ExportInCsv_Click(object sender, EventArgs e)
         {
-           onePl.vertexInTableOutCsv(cbAccuracyPoint.Text);
+            onePl.vertexInTableOutCsv(cbAccuracyPoint.Text, cbIsUseUCS.Checked, cbIsXYrevers.Checked);
         }
         
         private void segmentToLines_Click(object sender, EventArgs e)

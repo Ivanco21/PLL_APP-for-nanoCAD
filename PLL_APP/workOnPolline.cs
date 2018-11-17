@@ -78,7 +78,7 @@ namespace PLL_APP
 
         }
 
-        public McTable vertexInTable(DbPolyline plineGetFromUser, string accuracyPoint) 
+        public McTable vertexInTable(DbPolyline plineGetFromUser, string accuracyPoint, bool isUseUCS, bool isXYrevers) 
         {
             
             List<Point3d> Vert = new List<Point3d>();
@@ -103,17 +103,22 @@ namespace PLL_APP
             TablePoint[0, 1].Value = "X";
             TablePoint[0, 2].Value = "Y";
             TablePoint[0, 3].Value = "Z";
+
             // учитываем  систему координат
             McDocument doc = McDocument.WorkingDocument;
             Matrix3d matCurrent = doc.UCS;
-            Matrix3d matUsc = matCurrent.Inverse(); 
+            Matrix3d matUsc = matCurrent.Inverse();
              
             //номера точек в ячейки и  координата X,Y,Z
             for (int i = 0; i < Vert.Count; i++)
             {
                 Point3d onePointAtList = new Point3d();
                 onePointAtList = Vert[i];
-                onePointAtList = onePointAtList.TransformBy(matUsc);// преобразуем в текущую систему координат
+                // преобразовать в UCS?
+                if (isUseUCS)
+                {
+                    onePointAtList = onePointAtList.TransformBy(matUsc);// преобразуем в текущую систему координат
+                }
                 int j = i + 1;
                 // точность представления чисел в ячейках - получается из формы от пользователя 
                 switch (accuracyPoint)
@@ -143,24 +148,34 @@ namespace PLL_APP
                         break;
                 }
 
-            //номера точек в ячейки и  координата X,Y,Z
-            TablePoint[j, 0].Type = CellFormatEnum.Number;
-            TablePoint[j, 0].Value = j.ToString();
+                // тип данных в ячейке
+                TablePoint[j, 0].Type = CellFormatEnum.Number;
+                TablePoint[j, 1].Type = CellFormatEnum.Number;
+                TablePoint[j, 2].Type = CellFormatEnum.Number;
+                TablePoint[j, 3].Type = CellFormatEnum.Number;
 
-            TablePoint[j, 1].Type = CellFormatEnum.Number;
-            TablePoint[j, 1].Value = onePointAtList.X.ToString();
-
-            TablePoint[j, 2].Type = CellFormatEnum.Number;
-            TablePoint[j, 2].Value = onePointAtList.Y.ToString();
-
-            TablePoint[j, 3].Type = CellFormatEnum.Number;
-            TablePoint[j, 3].Value = onePointAtList.Z.ToString();
+                //номера точек в ячейки 
+                TablePoint[j, 0].Value = j.ToString();
+                // X и Yв ячейки 
+                //меняем местами  X и Y если isXYrevers == true
+                if (isXYrevers)
+                {
+                    TablePoint[j, 1].Value = onePointAtList.Y.ToString();
+                    TablePoint[j, 2].Value = onePointAtList.X.ToString();
+                }
+                else
+                {
+                    TablePoint[j, 1].Value = onePointAtList.X.ToString();
+                    TablePoint[j, 2].Value = onePointAtList.Y.ToString();
+                }
+                //Z в ячейки 
+                TablePoint[j, 3].Value = onePointAtList.Z.ToString();
           }
 
             return TablePoint;
        }
 
-        public McTable vertexInTableKadastrForm(DbPolyline plineGetFromUser, string accuracyPoint)
+        public McTable vertexInTableKadastrForm(DbPolyline plineGetFromUser, string accuracyPoint, bool isUseUCS, bool isXYrevers)
         {
 
             List<Point3d> Vert = new List<Point3d>();
@@ -285,19 +300,34 @@ namespace PLL_APP
             {
                 Point3d onePointAtList = new Point3d();
                 onePointAtList = Vert[i];
-                onePointAtList = onePointAtList.TransformBy(matUsc);// преобразуем в текущую систему координат
+                // преобразовать в UCS?
+                if (isUseUCS)
+                {
+                    onePointAtList = onePointAtList.TransformBy(matUsc);// преобразуем в текущую систему координат
+                }
                 int j = i + 4;
-
-                //номера точек в ячейки и  координата X,Y
+                // тип данных в ячейке
+ 
                 TablePoint[j, 0].Type = CellFormatEnum.Number;
+                TablePoint[j, 1].Type = CellFormatEnum.Number;
+                TablePoint[j, 2].Type = CellFormatEnum.Number;
+                //номера точек в ячейки 
                 int pointNumber = j - 3;
                 TablePoint[j, 0].Value = pointNumber.ToString();
 
-                TablePoint[j, 1].Type = CellFormatEnum.Number;
-                TablePoint[j, 1].Value = onePointAtList.X.ToString();
+                //координата X,Y в ячейки 
+                //меняем местами  X и Y если isXYrevers == true
+                if (isXYrevers)
+                {
+                    TablePoint[j, 1].Value = onePointAtList.Y.ToString();
+                    TablePoint[j, 2].Value = onePointAtList.X.ToString();
+                }
+                else
+                {
+                    TablePoint[j, 1].Value = onePointAtList.X.ToString();
+                    TablePoint[j, 2].Value = onePointAtList.Y.ToString();
+                }
 
-                TablePoint[j, 2].Type = CellFormatEnum.Number;
-                TablePoint[j, 2].Value = onePointAtList.Y.ToString();
 
             }
 
@@ -305,41 +335,52 @@ namespace PLL_APP
             if (plIsClose & !onePointEqualTwoPoint)
             {
                 TablePoint[allRowCount - 1, 0].Type = CellFormatEnum.Number;
-                TablePoint[allRowCount - 1, 0].Value = (Vert.Count + 1).ToString();
-
                 TablePoint[allRowCount - 1, 1].Type = CellFormatEnum.Number;
-                TablePoint[allRowCount - 1, 1].Value = Vert[0].X.ToString();
-
                 TablePoint[allRowCount - 1, 2].Type = CellFormatEnum.Number;
-                TablePoint[allRowCount - 1, 2].Value = Vert[0].Y.ToString();
+                // всегда "1" согласно правилам заполнения кадастровой формы
+                TablePoint[allRowCount - 1, 0].Value = "1";
+
+                //координата X,Y в ячейки 
+                //меняем местами  X и Y если isXYrevers == true
+                if (isXYrevers)
+                {
+                    TablePoint[allRowCount - 1, 1].Value = Vert[0].Y.ToString();
+                    TablePoint[allRowCount - 1, 2].Value = Vert[0].X.ToString();
+                }
+                else
+                {
+                    TablePoint[allRowCount - 1, 1].Value = Vert[0].X.ToString();
+                    TablePoint[allRowCount - 1, 2].Value = Vert[0].Y.ToString();
+                }
+
             }
 
             return TablePoint;
         }
 
-        public void vertexInTableOutDwg(string accuracyPoint, bool isKadastrForm)
+        public void vertexInTableOutDwg(string accuracyPoint, bool isKadastrForm ,bool isUseUCS, bool isXYrevers )
         {
             // таблица по кадастровой форме или простая 
             if (isKadastrForm == true)
             {
                 // создаем таблицу на чертеже
-                McTable TablePoint = vertexInTableKadastrForm(plineGetFromUser, accuracyPoint);
+                McTable TablePoint = vertexInTableKadastrForm(plineGetFromUser, accuracyPoint, isUseUCS, isXYrevers);
                 TablePoint.PlaceObject(McEntity.PlaceFlags.Silent);
             }
             else
             {
                 // создаем таблицу на чертеже
-                McTable TablePoint = vertexInTable(plineGetFromUser, accuracyPoint);
+                McTable TablePoint = vertexInTable(plineGetFromUser, accuracyPoint, isUseUCS, isXYrevers);
                 TablePoint.PlaceObject(McEntity.PlaceFlags.Silent);
             }
 
 
         }
 
-        public void vertexInTableOutCsv(string accuracyPoint)
+        public void vertexInTableOutCsv(string accuracyPoint,bool isUseUCS, bool isXYrevers)
         {
             //выгружаем в csv
-            McTable TablePoint = vertexInTable(plineGetFromUser, accuracyPoint);
+            McTable TablePoint = vertexInTable(plineGetFromUser, accuracyPoint, isUseUCS, isXYrevers);
             TablePoint.SaveToFile();
         }
 

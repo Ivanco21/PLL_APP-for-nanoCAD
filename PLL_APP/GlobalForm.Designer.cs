@@ -62,10 +62,12 @@
             this.tbConrlMain = new System.Windows.Forms.TabControl();
             this.tbPgMain = new System.Windows.Forms.TabPage();
             this.tbAbout = new System.Windows.Forms.TabPage();
-            this.tbHelpMe = new System.Windows.Forms.TextBox();
-            this.tbForum = new System.Windows.Forms.TextBox();
-            this.tbSource = new System.Windows.Forms.TextBox();
             this.tbAboutProgram = new System.Windows.Forms.TextBox();
+            this.tbSource = new System.Windows.Forms.TextBox();
+            this.tbForum = new System.Windows.Forms.TextBox();
+            this.tbHelpMe = new System.Windows.Forms.TextBox();
+            this.cbIsUseUCS = new System.Windows.Forms.CheckBox();
+            this.cbIsXYrevers = new System.Windows.Forms.CheckBox();
             this.pnlOnePnl.SuspendLayout();
             this.gbGeomtoVertexPl.SuspendLayout();
             this.gbRenumerateVertexPl.SuspendLayout();
@@ -101,7 +103,7 @@
             this.pnlOnePnl.Enabled = false;
             this.pnlOnePnl.Location = new System.Drawing.Point(6, 33);
             this.pnlOnePnl.Name = "pnlOnePnl";
-            this.pnlOnePnl.Size = new System.Drawing.Size(368, 522);
+            this.pnlOnePnl.Size = new System.Drawing.Size(368, 543);
             this.pnlOnePnl.TabIndex = 1;
             // 
             // gbGeomtoVertexPl
@@ -109,7 +111,7 @@
             this.gbGeomtoVertexPl.Controls.Add(this.btnPlaceGeom);
             this.gbGeomtoVertexPl.Controls.Add(this.lbGeomToPlVert);
             this.gbGeomtoVertexPl.Controls.Add(this.btnGetObj);
-            this.gbGeomtoVertexPl.Location = new System.Drawing.Point(3, 291);
+            this.gbGeomtoVertexPl.Location = new System.Drawing.Point(3, 323);
             this.gbGeomtoVertexPl.Name = "gbGeomtoVertexPl";
             this.gbGeomtoVertexPl.Size = new System.Drawing.Size(357, 78);
             this.gbGeomtoVertexPl.TabIndex = 14;
@@ -150,9 +152,9 @@
             this.gbRenumerateVertexPl.Controls.Add(this.lbInfoAboutPl);
             this.gbRenumerateVertexPl.Controls.Add(this.btnRenumVertexInPl);
             this.gbRenumerateVertexPl.Controls.Add(this.dmUpDwnVertexInPl);
-            this.gbRenumerateVertexPl.Location = new System.Drawing.Point(9, 189);
+            this.gbRenumerateVertexPl.Location = new System.Drawing.Point(3, 218);
             this.gbRenumerateVertexPl.Name = "gbRenumerateVertexPl";
-            this.gbRenumerateVertexPl.Size = new System.Drawing.Size(348, 96);
+            this.gbRenumerateVertexPl.Size = new System.Drawing.Size(357, 105);
             this.gbRenumerateVertexPl.TabIndex = 13;
             this.gbRenumerateVertexPl.TabStop = false;
             // 
@@ -190,9 +192,9 @@
             this.gbRedusePl.Controls.Add(this.tbTolerance);
             this.gbRedusePl.Controls.Add(this.btRedusePl);
             this.gbRedusePl.Controls.Add(this.cbDelSoursePl);
-            this.gbRedusePl.Location = new System.Drawing.Point(3, 375);
+            this.gbRedusePl.Location = new System.Drawing.Point(3, 403);
             this.gbRedusePl.Name = "gbRedusePl";
-            this.gbRedusePl.Size = new System.Drawing.Size(348, 77);
+            this.gbRedusePl.Size = new System.Drawing.Size(357, 77);
             this.gbRedusePl.TabIndex = 12;
             this.gbRedusePl.TabStop = false;
             // 
@@ -237,7 +239,7 @@
             // 
             // DelDuplicateVertexPl
             // 
-            this.DelDuplicateVertexPl.Location = new System.Drawing.Point(166, 482);
+            this.DelDuplicateVertexPl.Location = new System.Drawing.Point(166, 504);
             this.DelDuplicateVertexPl.Name = "DelDuplicateVertexPl";
             this.DelDuplicateVertexPl.Size = new System.Drawing.Size(185, 25);
             this.DelDuplicateVertexPl.TabIndex = 11;
@@ -248,7 +250,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(-1, 455);
+            this.label1.Location = new System.Drawing.Point(1, 485);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(364, 13);
             this.label1.TabIndex = 10;
@@ -256,21 +258,23 @@
             // 
             // vertInTable
             // 
+            this.vertInTable.Controls.Add(this.cbIsXYrevers);
+            this.vertInTable.Controls.Add(this.cbIsUseUCS);
             this.vertInTable.Controls.Add(this.cbKadasdrTableForm);
             this.vertInTable.Controls.Add(this.vertexInTable);
             this.vertInTable.Controls.Add(this.cbAccuracyPoint);
             this.vertInTable.Controls.Add(this.btExportInCsv);
             this.vertInTable.Controls.Add(this.lbAccuracyPoint);
-            this.vertInTable.Location = new System.Drawing.Point(9, 3);
+            this.vertInTable.Location = new System.Drawing.Point(3, 3);
             this.vertInTable.Name = "vertInTable";
-            this.vertInTable.Size = new System.Drawing.Size(348, 87);
+            this.vertInTable.Size = new System.Drawing.Size(357, 120);
             this.vertInTable.TabIndex = 9;
             this.vertInTable.TabStop = false;
             // 
             // cbKadasdrTableForm
             // 
             this.cbKadasdrTableForm.AutoSize = true;
-            this.cbKadasdrTableForm.Location = new System.Drawing.Point(204, 59);
+            this.cbKadasdrTableForm.Location = new System.Drawing.Point(204, 54);
             this.cbKadasdrTableForm.Name = "cbKadasdrTableForm";
             this.cbKadasdrTableForm.Size = new System.Drawing.Size(132, 17);
             this.cbKadasdrTableForm.TabIndex = 5;
@@ -296,7 +300,7 @@
             "0.0",
             "0.00",
             "0.000"});
-            this.cbAccuracyPoint.Location = new System.Drawing.Point(214, 27);
+            this.cbAccuracyPoint.Location = new System.Drawing.Point(204, 27);
             this.cbAccuracyPoint.Name = "cbAccuracyPoint";
             this.cbAccuracyPoint.Size = new System.Drawing.Size(99, 21);
             this.cbAccuracyPoint.TabIndex = 2;
@@ -315,7 +319,7 @@
             // lbAccuracyPoint
             // 
             this.lbAccuracyPoint.AutoSize = true;
-            this.lbAccuracyPoint.Location = new System.Drawing.Point(211, 11);
+            this.lbAccuracyPoint.Location = new System.Drawing.Point(201, 11);
             this.lbAccuracyPoint.Name = "lbAccuracyPoint";
             this.lbAccuracyPoint.Size = new System.Drawing.Size(110, 13);
             this.lbAccuracyPoint.TabIndex = 3;
@@ -328,9 +332,9 @@
             this.numVertex.Controls.Add(this.btNumberVertInDwg);
             this.numVertex.Controls.Add(this.lbTextHeight);
             this.numVertex.Controls.Add(this.tbTextHeight);
-            this.numVertex.Location = new System.Drawing.Point(9, 96);
+            this.numVertex.Location = new System.Drawing.Point(3, 122);
             this.numVertex.Name = "numVertex";
-            this.numVertex.Size = new System.Drawing.Size(348, 93);
+            this.numVertex.Size = new System.Drawing.Size(357, 93);
             this.numVertex.TabIndex = 8;
             this.numVertex.TabStop = false;
             // 
@@ -385,7 +389,7 @@
             // 
             // revers
             // 
-            this.revers.Location = new System.Drawing.Point(12, 482);
+            this.revers.Location = new System.Drawing.Point(12, 504);
             this.revers.Name = "revers";
             this.revers.Size = new System.Drawing.Size(75, 25);
             this.revers.TabIndex = 0;
@@ -400,7 +404,7 @@
             this.tbConrlMain.Location = new System.Drawing.Point(12, 12);
             this.tbConrlMain.Name = "tbConrlMain";
             this.tbConrlMain.SelectedIndex = 0;
-            this.tbConrlMain.Size = new System.Drawing.Size(390, 587);
+            this.tbConrlMain.Size = new System.Drawing.Size(390, 608);
             this.tbConrlMain.TabIndex = 4;
             // 
             // tbPgMain
@@ -410,7 +414,7 @@
             this.tbPgMain.Location = new System.Drawing.Point(4, 22);
             this.tbPgMain.Name = "tbPgMain";
             this.tbPgMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tbPgMain.Size = new System.Drawing.Size(382, 561);
+            this.tbPgMain.Size = new System.Drawing.Size(382, 582);
             this.tbPgMain.TabIndex = 0;
             this.tbPgMain.Text = "Main";
             this.tbPgMain.UseVisualStyleBackColor = true;
@@ -428,30 +432,18 @@
             this.tbAbout.Text = "О программе/сказать спасибо";
             this.tbAbout.UseVisualStyleBackColor = true;
             // 
-            // tbHelpMe
+            // tbAboutProgram
             // 
-            this.tbHelpMe.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbHelpMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbHelpMe.Location = new System.Drawing.Point(7, 123);
-            this.tbHelpMe.Multiline = true;
-            this.tbHelpMe.Name = "tbHelpMe";
-            this.tbHelpMe.ReadOnly = true;
-            this.tbHelpMe.Size = new System.Drawing.Size(360, 196);
-            this.tbHelpMe.TabIndex = 7;
-            this.tbHelpMe.Text = resources.GetString("tbHelpMe.Text");
-            // 
-            // tbForum
-            // 
-            this.tbForum.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbForum.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbForum.Location = new System.Drawing.Point(7, 357);
-            this.tbForum.Multiline = true;
-            this.tbForum.Name = "tbForum";
-            this.tbForum.ReadOnly = true;
-            this.tbForum.Size = new System.Drawing.Size(342, 79);
-            this.tbForum.TabIndex = 8;
-            this.tbForum.Text = "Обсуждение скрипта ведется на формуме: \r\n \r\nhttp://forum.nanocad.ru/index.php?sho" +
-    "wtopic=7021&st=0\r\n";
+            this.tbAboutProgram.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbAboutProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbAboutProgram.Location = new System.Drawing.Point(25, 31);
+            this.tbAboutProgram.Multiline = true;
+            this.tbAboutProgram.Name = "tbAboutProgram";
+            this.tbAboutProgram.ReadOnly = true;
+            this.tbAboutProgram.Size = new System.Drawing.Size(315, 47);
+            this.tbAboutProgram.TabIndex = 10;
+            this.tbAboutProgram.Text = "Набор дополнительных инструментов для работы с полилинией";
+            this.tbAboutProgram.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tbSource
             // 
@@ -466,30 +458,64 @@
             this.tbSource.Text = "Исходный код проекта открыт и находится на GITHUB - \r\n\r\nhttps://github.com/Ivanco" +
     "21/PLL_APP_for_nanoCAD_AutoCAD";
             // 
-            // tbAboutProgram
+            // tbForum
             // 
-            this.tbAboutProgram.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbAboutProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbAboutProgram.Location = new System.Drawing.Point(25, 31);
-            this.tbAboutProgram.Multiline = true;
-            this.tbAboutProgram.Name = "tbAboutProgram";
-            this.tbAboutProgram.ReadOnly = true;
-            this.tbAboutProgram.Size = new System.Drawing.Size(315, 47);
-            this.tbAboutProgram.TabIndex = 10;
-            this.tbAboutProgram.Text = "Набор дополнительных инструментов для работы с полилинией";
-            this.tbAboutProgram.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbForum.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbForum.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbForum.Location = new System.Drawing.Point(7, 357);
+            this.tbForum.Multiline = true;
+            this.tbForum.Name = "tbForum";
+            this.tbForum.ReadOnly = true;
+            this.tbForum.Size = new System.Drawing.Size(342, 79);
+            this.tbForum.TabIndex = 8;
+            this.tbForum.Text = "Обсуждение скрипта ведется на формуме: \r\n \r\nhttp://forum.nanocad.ru/index.php?sho" +
+    "wtopic=7021&st=0\r\n";
+            // 
+            // tbHelpMe
+            // 
+            this.tbHelpMe.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbHelpMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbHelpMe.Location = new System.Drawing.Point(7, 123);
+            this.tbHelpMe.Multiline = true;
+            this.tbHelpMe.Name = "tbHelpMe";
+            this.tbHelpMe.ReadOnly = true;
+            this.tbHelpMe.Size = new System.Drawing.Size(360, 196);
+            this.tbHelpMe.TabIndex = 7;
+            this.tbHelpMe.Text = resources.GetString("tbHelpMe.Text");
+            // 
+            // cbIsUseUCS
+            // 
+            this.cbIsUseUCS.AutoSize = true;
+            this.cbIsUseUCS.Checked = true;
+            this.cbIsUseUCS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbIsUseUCS.Location = new System.Drawing.Point(204, 77);
+            this.cbIsUseUCS.Name = "cbIsUseUCS";
+            this.cbIsUseUCS.Size = new System.Drawing.Size(106, 17);
+            this.cbIsUseUCS.TabIndex = 6;
+            this.cbIsUseUCS.Text = "Учитывать UCS";
+            this.cbIsUseUCS.UseVisualStyleBackColor = true;
+            // 
+            // cbIsXYrevers
+            // 
+            this.cbIsXYrevers.AutoSize = true;
+            this.cbIsXYrevers.Location = new System.Drawing.Point(204, 100);
+            this.cbIsXYrevers.Name = "cbIsXYrevers";
+            this.cbIsXYrevers.Size = new System.Drawing.Size(70, 17);
+            this.cbIsXYrevers.TabIndex = 7;
+            this.cbIsXYrevers.Text = "X<------>Y";
+            this.cbIsXYrevers.UseVisualStyleBackColor = true;
             // 
             // GlobalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 608);
+            this.ClientSize = new System.Drawing.Size(411, 632);
             this.Controls.Add(this.tbConrlMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "GlobalForm";
             this.ShowIcon = false;
-            this.Text = "PLL APP by Ivanco_v0.4 (soldatov@infoind.info)";
+            this.Text = "PLL APP by Ivanco_v0.46 (soldatov@infoind.info)";
             this.pnlOnePnl.ResumeLayout(false);
             this.pnlOnePnl.PerformLayout();
             this.gbGeomtoVertexPl.ResumeLayout(false);
@@ -549,5 +575,7 @@
         private System.Windows.Forms.TextBox tbSource;
         private System.Windows.Forms.TextBox tbForum;
         private System.Windows.Forms.TextBox tbAboutProgram;
+        private System.Windows.Forms.CheckBox cbIsXYrevers;
+        private System.Windows.Forms.CheckBox cbIsUseUCS;
     }
 }
