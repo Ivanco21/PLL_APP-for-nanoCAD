@@ -85,13 +85,13 @@ namespace PLL_APP
 
                 if (!isXyCoordRevers)
                 {
-                    notePos.FirstLine= Math.Round(coordPt.X, accuracyNoteInt).ToString();
-                    notePos.SecondLine = Math.Round(coordPt.Y, accuracyNoteInt).ToString();
+                    notePos.FirstLine = "X= " + Math.Round(coordPt.X, accuracyNoteInt).ToString();
+                    notePos.SecondLine = "Y= " + Math.Round(coordPt.Y, accuracyNoteInt).ToString();
                 }
                 else
                 {
-                    notePos.FirstLine = Math.Round(coordPt.Y, accuracyNoteInt).ToString();
-                    notePos.SecondLine = Math.Round(coordPt.X, accuracyNoteInt).ToString();
+                    notePos.FirstLine = "X= " + Math.Round(coordPt.Y, accuracyNoteInt).ToString();
+                    notePos.SecondLine = "Y= " + Math.Round(coordPt.X, accuracyNoteInt).ToString();
                 }
 
                 notePos.DbEntity.Color = Multicad.Constants.Colors.ByLayer;

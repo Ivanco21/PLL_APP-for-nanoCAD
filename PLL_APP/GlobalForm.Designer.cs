@@ -511,6 +511,8 @@
             // cbUseUCSforNote
             // 
             this.cbUseUCSforNote.AutoSize = true;
+            this.cbUseUCSforNote.Checked = true;
+            this.cbUseUCSforNote.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbUseUCSforNote.Location = new System.Drawing.Point(221, 37);
             this.cbUseUCSforNote.Name = "cbUseUCSforNote";
             this.cbUseUCSforNote.Size = new System.Drawing.Size(106, 17);
