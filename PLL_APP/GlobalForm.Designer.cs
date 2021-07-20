@@ -47,6 +47,8 @@
             this.DelDuplicateVertexPl = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.vertInTable = new System.Windows.Forms.GroupBox();
+            this.cbIsXYrevers = new System.Windows.Forms.CheckBox();
+            this.cbIsUseUCS = new System.Windows.Forms.CheckBox();
             this.cbKadasdrTableForm = new System.Windows.Forms.CheckBox();
             this.vertexInTable = new System.Windows.Forms.Button();
             this.cbAccuracyPoint = new System.Windows.Forms.ComboBox();
@@ -61,13 +63,17 @@
             this.revers = new System.Windows.Forms.Button();
             this.tbConrlMain = new System.Windows.Forms.TabControl();
             this.tbPgMain = new System.Windows.Forms.TabPage();
+            this.tbNotes = new System.Windows.Forms.TabPage();
+            this.lbAccuracyNote = new System.Windows.Forms.Label();
+            this.cbAccuracyNote = new System.Windows.Forms.ComboBox();
+            this.btnAddNote = new System.Windows.Forms.Button();
+            this.cbReversXYforNote = new System.Windows.Forms.CheckBox();
+            this.cbUseUCSforNote = new System.Windows.Forms.CheckBox();
             this.tbAbout = new System.Windows.Forms.TabPage();
             this.tbAboutProgram = new System.Windows.Forms.TextBox();
             this.tbSource = new System.Windows.Forms.TextBox();
             this.tbForum = new System.Windows.Forms.TextBox();
             this.tbHelpMe = new System.Windows.Forms.TextBox();
-            this.cbIsUseUCS = new System.Windows.Forms.CheckBox();
-            this.cbIsXYrevers = new System.Windows.Forms.CheckBox();
             this.pnlOnePnl.SuspendLayout();
             this.gbGeomtoVertexPl.SuspendLayout();
             this.gbRenumerateVertexPl.SuspendLayout();
@@ -76,6 +82,7 @@
             this.numVertex.SuspendLayout();
             this.tbConrlMain.SuspendLayout();
             this.tbPgMain.SuspendLayout();
+            this.tbNotes.SuspendLayout();
             this.tbAbout.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -126,7 +133,7 @@
             this.btnPlaceGeom.TabIndex = 2;
             this.btnPlaceGeom.Text = "Расставить";
             this.btnPlaceGeom.UseVisualStyleBackColor = true;
-            this.btnPlaceGeom.Click += new System.EventHandler(this.btnPlaceGeom_Click);
+            this.btnPlaceGeom.Click += new System.EventHandler(this.BtnPlaceGeom_Click);
             // 
             // lbGeomToPlVert
             // 
@@ -145,7 +152,7 @@
             this.btnGetObj.TabIndex = 0;
             this.btnGetObj.Text = "Выберите объект";
             this.btnGetObj.UseVisualStyleBackColor = true;
-            this.btnGetObj.Click += new System.EventHandler(this.btnGetObj_Click);
+            this.btnGetObj.Click += new System.EventHandler(this.BtnGetObj_Click);
             // 
             // gbRenumerateVertexPl
             // 
@@ -176,7 +183,7 @@
             this.btnRenumVertexInPl.TabIndex = 1;
             this.btnRenumVertexInPl.Text = "Перенумерация вершин из 1 в ->";
             this.btnRenumVertexInPl.UseVisualStyleBackColor = true;
-            this.btnRenumVertexInPl.Click += new System.EventHandler(this.btnRenumVertexInPl_Click);
+            this.btnRenumVertexInPl.Click += new System.EventHandler(this.BtnRenumVertexInPl_Click);
             // 
             // dmUpDwnVertexInPl
             // 
@@ -214,7 +221,7 @@
             this.tbTolerance.Size = new System.Drawing.Size(99, 20);
             this.tbTolerance.TabIndex = 2;
             this.tbTolerance.Text = "50";
-            this.tbTolerance.TextChanged += new System.EventHandler(this.tbTolerance_TextChanged);
+            this.tbTolerance.TextChanged += new System.EventHandler(this.TbTolerance_TextChanged);
             // 
             // btRedusePl
             // 
@@ -224,7 +231,7 @@
             this.btRedusePl.TabIndex = 0;
             this.btRedusePl.Text = "Упростить";
             this.btRedusePl.UseVisualStyleBackColor = true;
-            this.btRedusePl.Click += new System.EventHandler(this.btFitPl_Click);
+            this.btRedusePl.Click += new System.EventHandler(this.BtFitPl_Click);
             // 
             // cbDelSoursePl
             // 
@@ -235,7 +242,7 @@
             this.cbDelSoursePl.TabIndex = 1;
             this.cbDelSoursePl.Text = "Удалять исходную полилинию";
             this.cbDelSoursePl.UseVisualStyleBackColor = true;
-            this.cbDelSoursePl.CheckedChanged += new System.EventHandler(this.cbDelSoursePl_CheckedChanged);
+            this.cbDelSoursePl.CheckedChanged += new System.EventHandler(this.CbDelSoursePl_CheckedChanged);
             // 
             // DelDuplicateVertexPl
             // 
@@ -245,7 +252,7 @@
             this.DelDuplicateVertexPl.TabIndex = 11;
             this.DelDuplicateVertexPl.Text = "Удаление одинаковых вершин";
             this.DelDuplicateVertexPl.UseVisualStyleBackColor = true;
-            this.DelDuplicateVertexPl.Click += new System.EventHandler(this.segmentToLines_Click);
+            this.DelDuplicateVertexPl.Click += new System.EventHandler(this.SegmentToLines_Click);
             // 
             // label1
             // 
@@ -271,6 +278,28 @@
             this.vertInTable.TabIndex = 9;
             this.vertInTable.TabStop = false;
             // 
+            // cbIsXYrevers
+            // 
+            this.cbIsXYrevers.AutoSize = true;
+            this.cbIsXYrevers.Location = new System.Drawing.Point(204, 100);
+            this.cbIsXYrevers.Name = "cbIsXYrevers";
+            this.cbIsXYrevers.Size = new System.Drawing.Size(70, 17);
+            this.cbIsXYrevers.TabIndex = 7;
+            this.cbIsXYrevers.Text = "X<------>Y";
+            this.cbIsXYrevers.UseVisualStyleBackColor = true;
+            // 
+            // cbIsUseUCS
+            // 
+            this.cbIsUseUCS.AutoSize = true;
+            this.cbIsUseUCS.Checked = true;
+            this.cbIsUseUCS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbIsUseUCS.Location = new System.Drawing.Point(204, 77);
+            this.cbIsUseUCS.Name = "cbIsUseUCS";
+            this.cbIsUseUCS.Size = new System.Drawing.Size(106, 17);
+            this.cbIsUseUCS.TabIndex = 6;
+            this.cbIsUseUCS.Text = "Учитывать UCS";
+            this.cbIsUseUCS.UseVisualStyleBackColor = true;
+            // 
             // cbKadasdrTableForm
             // 
             this.cbKadasdrTableForm.AutoSize = true;
@@ -289,7 +318,7 @@
             this.vertexInTable.TabIndex = 1;
             this.vertexInTable.Text = "Вершины в таблицу чертежа";
             this.vertexInTable.UseVisualStyleBackColor = true;
-            this.vertexInTable.Click += new System.EventHandler(this.vertexInTable_Click);
+            this.vertexInTable.Click += new System.EventHandler(this.VertexInTable_Click);
             // 
             // cbAccuracyPoint
             // 
@@ -345,7 +374,7 @@
             this.tbStartNumerateNumber.ReadOnly = true;
             this.tbStartNumerateNumber.Size = new System.Drawing.Size(94, 20);
             this.tbStartNumerateNumber.TabIndex = 10;
-            this.tbStartNumerateNumber.TextChanged += new System.EventHandler(this.tbStartNumerateNumber_TextChanged);
+            this.tbStartNumerateNumber.TextChanged += new System.EventHandler(this.TbStartNumerateNumber_TextChanged);
             // 
             // cbStartNumerateAbout
             // 
@@ -356,7 +385,7 @@
             this.cbStartNumerateAbout.TabIndex = 9;
             this.cbStartNumerateAbout.Text = "Нумерация не с первой позиции,а с поз.:";
             this.cbStartNumerateAbout.UseVisualStyleBackColor = true;
-            this.cbStartNumerateAbout.CheckedChanged += new System.EventHandler(this.cbStartNumerateAbout_CheckedChanged);
+            this.cbStartNumerateAbout.CheckedChanged += new System.EventHandler(this.CbStartNumerateAbout_CheckedChanged);
             // 
             // btNumberVertInDwg
             // 
@@ -366,7 +395,7 @@
             this.btNumberVertInDwg.TabIndex = 5;
             this.btNumberVertInDwg.Text = "Нумеровать вершины в чертеже";
             this.btNumberVertInDwg.UseVisualStyleBackColor = true;
-            this.btNumberVertInDwg.Click += new System.EventHandler(this.numberInDwg_Click);
+            this.btNumberVertInDwg.Click += new System.EventHandler(this.NumberInDwg_Click);
             // 
             // lbTextHeight
             // 
@@ -385,7 +414,7 @@
             this.tbTextHeight.Size = new System.Drawing.Size(94, 20);
             this.tbTextHeight.TabIndex = 6;
             this.tbTextHeight.Text = "250";
-            this.tbTextHeight.TextChanged += new System.EventHandler(this.textHeight_TextChanged);
+            this.tbTextHeight.TextChanged += new System.EventHandler(this.TextHeight_TextChanged);
             // 
             // revers
             // 
@@ -395,11 +424,12 @@
             this.revers.TabIndex = 0;
             this.revers.Text = "Реверс";
             this.revers.UseVisualStyleBackColor = true;
-            this.revers.Click += new System.EventHandler(this.revers_Click);
+            this.revers.Click += new System.EventHandler(this.Revers_Click);
             // 
             // tbConrlMain
             // 
             this.tbConrlMain.Controls.Add(this.tbPgMain);
+            this.tbConrlMain.Controls.Add(this.tbNotes);
             this.tbConrlMain.Controls.Add(this.tbAbout);
             this.tbConrlMain.Location = new System.Drawing.Point(12, 12);
             this.tbConrlMain.Name = "tbConrlMain";
@@ -419,6 +449,75 @@
             this.tbPgMain.Text = "Main";
             this.tbPgMain.UseVisualStyleBackColor = true;
             // 
+            // tbNotes
+            // 
+            this.tbNotes.Controls.Add(this.lbAccuracyNote);
+            this.tbNotes.Controls.Add(this.cbAccuracyNote);
+            this.tbNotes.Controls.Add(this.btnAddNote);
+            this.tbNotes.Controls.Add(this.cbReversXYforNote);
+            this.tbNotes.Controls.Add(this.cbUseUCSforNote);
+            this.tbNotes.Location = new System.Drawing.Point(4, 22);
+            this.tbNotes.Name = "tbNotes";
+            this.tbNotes.Padding = new System.Windows.Forms.Padding(3);
+            this.tbNotes.Size = new System.Drawing.Size(382, 582);
+            this.tbNotes.TabIndex = 2;
+            this.tbNotes.Text = "Выноски";
+            this.tbNotes.UseVisualStyleBackColor = true;
+            // 
+            // lbAccuracyNote
+            // 
+            this.lbAccuracyNote.AutoSize = true;
+            this.lbAccuracyNote.Location = new System.Drawing.Point(217, 99);
+            this.lbAccuracyNote.Name = "lbAccuracyNote";
+            this.lbAccuracyNote.Size = new System.Drawing.Size(157, 13);
+            this.lbAccuracyNote.TabIndex = 12;
+            this.lbAccuracyNote.Text = "Точность координат выноски";
+            // 
+            // cbAccuracyNote
+            // 
+            this.cbAccuracyNote.DisplayMember = "(none)";
+            this.cbAccuracyNote.FormattingEnabled = true;
+            this.cbAccuracyNote.Items.AddRange(new object[] {
+            "0",
+            "0.0",
+            "0.00",
+            "0.000"});
+            this.cbAccuracyNote.Location = new System.Drawing.Point(220, 119);
+            this.cbAccuracyNote.Name = "cbAccuracyNote";
+            this.cbAccuracyNote.Size = new System.Drawing.Size(144, 21);
+            this.cbAccuracyNote.TabIndex = 11;
+            this.cbAccuracyNote.Text = "0.0";
+            // 
+            // btnAddNote
+            // 
+            this.btnAddNote.Location = new System.Drawing.Point(21, 37);
+            this.btnAddNote.Name = "btnAddNote";
+            this.btnAddNote.Size = new System.Drawing.Size(144, 41);
+            this.btnAddNote.TabIndex = 10;
+            this.btnAddNote.Text = "Выноски по вершинам полилинии";
+            this.btnAddNote.UseVisualStyleBackColor = true;
+            this.btnAddNote.Click += new System.EventHandler(this.BtnAddNote_Click);
+            // 
+            // cbReversXYforNote
+            // 
+            this.cbReversXYforNote.AutoSize = true;
+            this.cbReversXYforNote.Location = new System.Drawing.Point(221, 61);
+            this.cbReversXYforNote.Name = "cbReversXYforNote";
+            this.cbReversXYforNote.Size = new System.Drawing.Size(70, 17);
+            this.cbReversXYforNote.TabIndex = 9;
+            this.cbReversXYforNote.Text = "X<------>Y";
+            this.cbReversXYforNote.UseVisualStyleBackColor = true;
+            // 
+            // cbUseUCSforNote
+            // 
+            this.cbUseUCSforNote.AutoSize = true;
+            this.cbUseUCSforNote.Location = new System.Drawing.Point(221, 37);
+            this.cbUseUCSforNote.Name = "cbUseUCSforNote";
+            this.cbUseUCSforNote.Size = new System.Drawing.Size(106, 17);
+            this.cbUseUCSforNote.TabIndex = 8;
+            this.cbUseUCSforNote.Text = "Учитывать UCS";
+            this.cbUseUCSforNote.UseVisualStyleBackColor = false;
+            // 
             // tbAbout
             // 
             this.tbAbout.Controls.Add(this.tbAboutProgram);
@@ -427,9 +526,9 @@
             this.tbAbout.Controls.Add(this.tbHelpMe);
             this.tbAbout.Location = new System.Drawing.Point(4, 22);
             this.tbAbout.Name = "tbAbout";
-            this.tbAbout.Size = new System.Drawing.Size(382, 561);
+            this.tbAbout.Size = new System.Drawing.Size(382, 582);
             this.tbAbout.TabIndex = 1;
-            this.tbAbout.Text = "О программе/сказать спасибо";
+            this.tbAbout.Text = "О программе";
             this.tbAbout.UseVisualStyleBackColor = true;
             // 
             // tbAboutProgram
@@ -483,28 +582,6 @@
             this.tbHelpMe.TabIndex = 7;
             this.tbHelpMe.Text = resources.GetString("tbHelpMe.Text");
             // 
-            // cbIsUseUCS
-            // 
-            this.cbIsUseUCS.AutoSize = true;
-            this.cbIsUseUCS.Checked = true;
-            this.cbIsUseUCS.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbIsUseUCS.Location = new System.Drawing.Point(204, 77);
-            this.cbIsUseUCS.Name = "cbIsUseUCS";
-            this.cbIsUseUCS.Size = new System.Drawing.Size(106, 17);
-            this.cbIsUseUCS.TabIndex = 6;
-            this.cbIsUseUCS.Text = "Учитывать UCS";
-            this.cbIsUseUCS.UseVisualStyleBackColor = true;
-            // 
-            // cbIsXYrevers
-            // 
-            this.cbIsXYrevers.AutoSize = true;
-            this.cbIsXYrevers.Location = new System.Drawing.Point(204, 100);
-            this.cbIsXYrevers.Name = "cbIsXYrevers";
-            this.cbIsXYrevers.Size = new System.Drawing.Size(70, 17);
-            this.cbIsXYrevers.TabIndex = 7;
-            this.cbIsXYrevers.Text = "X<------>Y";
-            this.cbIsXYrevers.UseVisualStyleBackColor = true;
-            // 
             // GlobalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -515,7 +592,7 @@
             this.MaximizeBox = false;
             this.Name = "GlobalForm";
             this.ShowIcon = false;
-            this.Text = "PLL APP by Ivanco_v0.46 (soldatov@infoind.info)";
+            this.Text = "PLL APP by Ivanco_v0.5 (soldatov@infoind.info)";
             this.pnlOnePnl.ResumeLayout(false);
             this.pnlOnePnl.PerformLayout();
             this.gbGeomtoVertexPl.ResumeLayout(false);
@@ -530,6 +607,8 @@
             this.numVertex.PerformLayout();
             this.tbConrlMain.ResumeLayout(false);
             this.tbPgMain.ResumeLayout(false);
+            this.tbNotes.ResumeLayout(false);
+            this.tbNotes.PerformLayout();
             this.tbAbout.ResumeLayout(false);
             this.tbAbout.PerformLayout();
             this.ResumeLayout(false);
@@ -577,5 +656,11 @@
         private System.Windows.Forms.TextBox tbAboutProgram;
         private System.Windows.Forms.CheckBox cbIsXYrevers;
         private System.Windows.Forms.CheckBox cbIsUseUCS;
+        private System.Windows.Forms.TabPage tbNotes;
+        private System.Windows.Forms.CheckBox cbReversXYforNote;
+        private System.Windows.Forms.CheckBox cbUseUCSforNote;
+        private System.Windows.Forms.Button btnAddNote;
+        private System.Windows.Forms.Label lbAccuracyNote;
+        public System.Windows.Forms.ComboBox cbAccuracyNote;
     }
 }

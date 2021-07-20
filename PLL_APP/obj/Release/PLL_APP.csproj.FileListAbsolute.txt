@@ -1,7 +1,0 @@
-C:\Users\Иван\Desktop\Pline_App\Pline_APP\PLL_APP\PLL_APP\obj\Release\PLL_APP.GlobalForm.resources
-C:\Users\Иван\Desktop\Pline_App\Pline_APP\PLL_APP\PLL_APP\obj\Release\PLL_APP.csproj.GenerateResource.Cache
-C:\Users\Иван\Desktop\Pline_App\Pline_APP\PLL_APP\PLL_APP\obj\Release\PLL_APP.csprojResolveAssemblyReference.cache
-C:\Users\Иван\Desktop\Pline_App\Pline_APP\PLL_APP\PLL_APP\bin\Release\PLL_APP.dll
-C:\Users\Иван\Desktop\Pline_App\Pline_APP\PLL_APP\PLL_APP\bin\Release\PLL_APP.pdb
-C:\Users\Иван\Desktop\Pline_App\Pline_APP\PLL_APP\PLL_APP\obj\Release\PLL_APP.dll
-C:\Users\Иван\Desktop\Pline_App\Pline_APP\PLL_APP\PLL_APP\obj\Release\PLL_APP.pdb

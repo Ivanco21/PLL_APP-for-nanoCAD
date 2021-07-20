@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-
 using System.Globalization;
-
-using Multicad;
-using Multicad.DatabaseServices;
-using Multicad.Geometry;
-using Multicad.Runtime;
-using Multicad.DatabaseServices.StandardObjects;
-using Multicad.Symbols.Tables;
 
 namespace PLL_APP
 {
@@ -35,12 +23,12 @@ namespace PLL_APP
         private void GetPL_Click(object sender, EventArgs e)
         {
             OnePolylineSelector onePl = new OnePolylineSelector();
-            onePl.sendDataOnePlInForm += new EventHandler<UserEventArgsOnePlProp>(other_sendDataOnePlInForm);
+            onePl.sendDataOnePlInForm += new EventHandler<UserEventArgsOnePlProp>(Other_sendDataOnePlInForm);
             onePl.DoEventSendDataOnePlInForm();
  
         }
 
-        private void other_sendDataOnePlInForm(object sender, UserEventArgsOnePlProp e)
+        private void Other_sendDataOnePlInForm(object sender, UserEventArgsOnePlProp e)
         {
             if(e.CorrectlyGet == true)
             {
@@ -76,27 +64,27 @@ namespace PLL_APP
             onePl = onePolyline;
         }
         
-        private void vertexInTable_Click(object sender, EventArgs e)
+        private void VertexInTable_Click(object sender, EventArgs e)
         {
-            onePl.vertexInTableOutDwg(cbAccuracyPoint.Text, cbKadasdrTableForm.Checked,cbIsUseUCS.Checked,cbIsXYrevers.Checked);
+            onePl.VertexInTableOutDwg(cbAccuracyPoint.Text, cbKadasdrTableForm.Checked,cbIsUseUCS.Checked,cbIsXYrevers.Checked);
         }
 
-        private void numberInDwg_Click(object sender, EventArgs e)
+        private void NumberInDwg_Click(object sender, EventArgs e)
         {
             //если пользователь не ввел стартовое значение нумерации то оно =1, если же ввел передаем его из формы 
             if (cbStartNumerateAbout.Checked == false)
             {
-               onePl.numberInDwg(Convert.ToInt32(inputUserTextHeight),1);  
+               onePl.NumberInDwg(Convert.ToInt32(inputUserTextHeight),1);  
           
             }
             else
             {
-                onePl.numberInDwg(Convert.ToInt32(inputUserTextHeight),Convert.ToInt32(inputUserStartNumber));  
+                onePl.NumberInDwg(Convert.ToInt32(inputUserTextHeight),Convert.ToInt32(inputUserStartNumber));  
             }
                     
         }
      
-        private void textHeight_TextChanged(object sender, EventArgs e)
+        private void TextHeight_TextChanged(object sender, EventArgs e)
         {
             //проверка что вводится число!
            string inputTextHeight = tbTextHeight.Text;
@@ -119,7 +107,7 @@ namespace PLL_APP
                   btNumberVertInDwg.Enabled = true;
               }
         }
-        private void cbStartNumerateAbout_CheckedChanged(object sender, EventArgs e)
+        private void CbStartNumerateAbout_CheckedChanged(object sender, EventArgs e)
         {
             if (cbStartNumerateAbout.Checked == true)
             {
@@ -136,7 +124,7 @@ namespace PLL_APP
            
 
         }
-        private void tbStartNumerateNumber_TextChanged(object sender, EventArgs e)
+        private void TbStartNumerateNumber_TextChanged(object sender, EventArgs e)
         {
             if (cbStartNumerateAbout.Checked == true)
             {
@@ -163,26 +151,26 @@ namespace PLL_APP
             }         
         }                  
 
-        private void revers_Click(object sender, EventArgs e)
+        private void Revers_Click(object sender, EventArgs e)
         {
-            onePl.reversPolyline();
+            onePl.ReversPolyline();
             pnlOnePnl.Enabled = false;
             btGetPL.Text = "Выберите полилинию";
         }
 
         private void ExportInCsv_Click(object sender, EventArgs e)
         {
-            onePl.vertexInTableOutCsv(cbAccuracyPoint.Text, cbIsUseUCS.Checked, cbIsXYrevers.Checked);
+            onePl.VertexInTableOutCsv(cbAccuracyPoint.Text, cbIsUseUCS.Checked, cbIsXYrevers.Checked);
         }
         
-        private void segmentToLines_Click(object sender, EventArgs e)
+        private void SegmentToLines_Click(object sender, EventArgs e)
         {
-            onePl.deletDuplicatedVertexPolyline();
+            onePl.DeletDuplicatedVertexPolyline();
             pnlOnePnl.Enabled = false;
             btGetPL.Text = "Выберите полилинию";
         }
 
-        private void tbTolerance_TextChanged(object sender, EventArgs e)
+        private void TbTolerance_TextChanged(object sender, EventArgs e)
         {
             //проверка что вводится число!
             string inputMaxLenghtSegPl = tbTolerance.Text;
@@ -206,30 +194,30 @@ namespace PLL_APP
             }
 
         }
-        private void cbDelSoursePl_CheckedChanged(object sender, EventArgs e)
+        private void CbDelSoursePl_CheckedChanged(object sender, EventArgs e)
         {
             delSoursePl = cbDelSoursePl.Checked;  
         }
-        private void btFitPl_Click(object sender, EventArgs e)         
+        private void BtFitPl_Click(object sender, EventArgs e)         
         {
-            onePl.fitPolyline(MaxLenghtSegPl, delSoursePl);
+            onePl.FitPolyline(MaxLenghtSegPl, delSoursePl);
             pnlOnePnl.Enabled = false;
             btGetPL.Text = "Выберите полилинию";
         }
 
-        private void btnRenumVertexInPl_Click(object sender, EventArgs e)
+        private void BtnRenumVertexInPl_Click(object sender, EventArgs e)
         {
-            onePl.renumerateVertex(Convert.ToInt32(dmUpDwnVertexInPl.Text));
+            onePl.RenumerateVertex(Convert.ToInt32(dmUpDwnVertexInPl.Text));
         }
 
-        private void btnGetObj_Click(object sender, EventArgs e)
+        private void BtnGetObj_Click(object sender, EventArgs e)
         {
             OneObjSelector objForPlace = new OneObjSelector();
-            objForPlace.sendDataOneObjInForm += new EventHandler<UserEventArgsOneObjProp>(other_sendDatObjPlInForm);
+            objForPlace.sendDataOneObjInForm += new EventHandler<UserEventArgsOneObjProp>(Other_sendDatObjPlInForm);
             objForPlace.DoEventSendDataOneObjInForm();
         }
 
-        private void other_sendDatObjPlInForm(object sender, UserEventArgsOneObjProp e)
+        private void Other_sendDatObjPlInForm(object sender, UserEventArgsOneObjProp e)
         {
             if (e.CorrectlyGet == true)
             {
@@ -246,15 +234,21 @@ namespace PLL_APP
                 geomUserSelect = e.ObjFromUser;      
         }
 
-        private void btnPlaceGeom_Click(object sender, EventArgs e)
+        private void BtnPlaceGeom_Click(object sender, EventArgs e)
         {
             ObjPlaced place = new ObjPlaced(geomUserSelect, onePl);
             place.geometryPlaceToPlVertex();
         }
 
-        private void linkMoney_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkMoney_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://money.yandex.ru/to/41001456523527");
+        }
+
+        private void BtnAddNote_Click(object sender, EventArgs e)
+        {
+            NotesWorker note = new NotesWorker(onePl);
+            note.AddXYnotes(cbUseUCSforNote.Checked, cbReversXYforNote.Checked, cbAccuracyNote.Text);
         }
 
        

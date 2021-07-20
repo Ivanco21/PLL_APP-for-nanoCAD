@@ -20,7 +20,7 @@ namespace PLL_APP
             plineGetFromUser = Pl;
         }
 
-        public void reversPolyline ()
+        public void ReversPolyline ()
        {  
            
             List<Point3d> Vert = new List<Point3d>();
@@ -53,7 +53,7 @@ namespace PLL_APP
             plForWrite.DbEntity.AddToCurrentDocument();                        
         }
 
-        public void numberInDwg(int inputUserTextHeight, int startNumber) 
+        public void NumberInDwg(int inputUserTextHeight, int startNumber) 
         {
             int vertStartNum = startNumber;
             List<Point3d> Vert = new List<Point3d>();
@@ -78,7 +78,7 @@ namespace PLL_APP
 
         }
 
-        public McTable vertexInTable(DbPolyline plineGetFromUser, string accuracyPoint, bool isUseUCS, bool isXYrevers) 
+        public McTable VertexInTable(DbPolyline plineGetFromUser, string accuracyPoint, bool isUseUCS, bool isXYrevers) 
         {
             
             List<Point3d> Vert = new List<Point3d>();
@@ -175,7 +175,7 @@ namespace PLL_APP
             return TablePoint;
        }
 
-        public McTable vertexInTableKadastrForm(DbPolyline plineGetFromUser, string accuracyPoint, bool isUseUCS, bool isXYrevers)
+        public McTable VertexInTableKadastrForm(DbPolyline plineGetFromUser, string accuracyPoint, bool isUseUCS, bool isXYrevers)
         {
 
             List<Point3d> Vert = new List<Point3d>();
@@ -358,33 +358,33 @@ namespace PLL_APP
             return TablePoint;
         }
 
-        public void vertexInTableOutDwg(string accuracyPoint, bool isKadastrForm ,bool isUseUCS, bool isXYrevers )
+        public void VertexInTableOutDwg(string accuracyPoint, bool isKadastrForm ,bool isUseUCS, bool isXYrevers )
         {
             // таблица по кадастровой форме или простая 
             if (isKadastrForm == true)
             {
                 // создаем таблицу на чертеже
-                McTable TablePoint = vertexInTableKadastrForm(plineGetFromUser, accuracyPoint, isUseUCS, isXYrevers);
+                McTable TablePoint = VertexInTableKadastrForm(plineGetFromUser, accuracyPoint, isUseUCS, isXYrevers);
                 TablePoint.PlaceObject(McEntity.PlaceFlags.Silent);
             }
             else
             {
                 // создаем таблицу на чертеже
-                McTable TablePoint = vertexInTable(plineGetFromUser, accuracyPoint, isUseUCS, isXYrevers);
+                McTable TablePoint = VertexInTable(plineGetFromUser, accuracyPoint, isUseUCS, isXYrevers);
                 TablePoint.PlaceObject(McEntity.PlaceFlags.Silent);
             }
 
 
         }
 
-        public void vertexInTableOutCsv(string accuracyPoint,bool isUseUCS, bool isXYrevers)
+        public void VertexInTableOutCsv(string accuracyPoint,bool isUseUCS, bool isXYrevers)
         {
             //выгружаем в csv
-            McTable TablePoint = vertexInTable(plineGetFromUser, accuracyPoint, isUseUCS, isXYrevers);
+            McTable TablePoint = VertexInTable(plineGetFromUser, accuracyPoint, isUseUCS, isXYrevers);
             TablePoint.SaveToFile();
         }
 
-        public void deletDuplicatedVertexPolyline()
+        public void DeletDuplicatedVertexPolyline()
         {
             
             //на LINQ            
@@ -416,7 +416,7 @@ namespace PLL_APP
             plineGetFromUser.DbEntity.AddToCurrentDocument();       
         }
 
-        public void fitPolyline(double tolerance, bool delSoursePL)
+        public void FitPolyline(double tolerance, bool delSoursePL)
        {
          
           List<Point3d> Vert = new List<Point3d>();
@@ -491,7 +491,7 @@ namespace PLL_APP
           
        }
 
-        public void renumerateVertex(int numStartVertex)
+        public void RenumerateVertex(int numStartVertex)
         {
             List<Point3d> getVert = new List<Point3d>();
             getVert = this.listVertecs(plineGetFromUser);
@@ -518,5 +518,6 @@ namespace PLL_APP
            plineGetFromUser.DbEntity.Erase();// удаляет исходную PL из чертежа
            plForWrite.DbEntity.AddToCurrentDocument();
         }
+
     }
 }

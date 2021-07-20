@@ -1,3 +1,0 @@
-C:\Users\Иван\Desktop\Pline_App\Pline_APP\PLL_APP\PLL_APP\obj\Debug\PLL_APP.csprojResolveAssemblyReference.cache
-C:\Users\Иван\Desktop\Pline_App\Pline_APP\PLL_APP\PLL_APP\obj\Debug\PLL_APP.GlobalForm.resources
-C:\Users\Иван\Desktop\Pline_App\Pline_APP\PLL_APP\PLL_APP\obj\Debug\PLL_APP.csproj.GenerateResource.Cache
