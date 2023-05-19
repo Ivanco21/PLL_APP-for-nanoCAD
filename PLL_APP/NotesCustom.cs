@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-
-using Multicad;
 using Multicad.Symbols;
 using Multicad.Geometry;
 using Multicad.DatabaseServices;
-using Multicad.DatabaseServices.StandardObjects;
 
 namespace PLL_APP
 {
     class NotesWorker
     {
-
         public HandlerPolyline plineItem { get; set; }
 
         public NotesWorker(HandlerPolyline plineGetFromUser)
@@ -53,6 +48,11 @@ namespace PLL_APP
             Matrix3d matCurrent = doc.UCS;
             Matrix3d matUsc = matCurrent.Inverse();
 
+            //текущий масштаб
+            McStyle curStyle = McObjectManager.CurrentStyle;
+            double currentScale = curStyle.Scale;
+            double coefToMove = 10 * currentScale;
+
             List<Point3d> plVertexs = new List<Point3d>();
             // собираем все вершины в list
             plVertexs = this.plineItem.listVertecs(this.plineItem.plineGetFromUser);
@@ -63,17 +63,15 @@ namespace PLL_APP
                 Point3d firstNotePt = new Point3d();
                 firstNotePt = onePt;
 
-                Matrix3d movementMat = Matrix3d.Displacement(new Vector3d(500, 500, 0));
+                Matrix3d movementMat = Matrix3d.Displacement(new Vector3d(coefToMove, coefToMove, 0));
                 Point3d secondNotePt = new Point3d();
                 secondNotePt = firstNotePt;
                 secondNotePt = secondNotePt.TransformBy(movementMat);
-
 
                 McNotePosition notePos = new McNotePosition();
                 notePos.Origin = secondNotePt;
                 notePos.Leader.AddSegment(firstNotePt, secondNotePt);
                 notePos.Arrow = Arrows.Arrow;
-
 
                 Point3d coordPt = new Point3d();
                 coordPt = onePt;
