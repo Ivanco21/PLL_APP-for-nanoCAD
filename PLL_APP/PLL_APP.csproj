@@ -65,16 +65,20 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="hostdbmgd">
+      <HintPath>..\..\SDK\NC_SDK_22.0.5944.3726.6053\include-x64\hostdbmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="hostmgd">
-      <HintPath>C:\Users\mne21\Desktop\NC_SDK_21.0.5699.3427.5753\include-x64\hostmgd.dll</HintPath>
+      <HintPath>..\..\SDK\NC_SDK_22.0.5944.3726.6053\include-x64\hostmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="mapibasetypes">
-      <HintPath>C:\Users\mne21\Desktop\NC_SDK_21.0.5699.3427.5753\include-x64\mapibasetypes.dll</HintPath>
+      <HintPath>..\..\SDK\NC_SDK_22.0.5944.3726.6053\include-x64\mapibasetypes.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="mapimgd">
-      <HintPath>C:\Users\mne21\Desktop\NC_SDK_21.0.5699.3427.5753\include-x64\mapimgd.dll</HintPath>
+      <HintPath>..\..\SDK\NC_SDK_22.0.5944.3726.6053\include-x64\mapimgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
